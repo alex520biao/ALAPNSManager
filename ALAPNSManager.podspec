@@ -9,10 +9,10 @@
 
 Pod::Spec.new do |s|
   s.name             = "ALAPNSManager"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "APNSManager is a apns processing tool"
   s.description      = <<-DESC.gsub(/^\s*\|?/,'')
-                       a apns processing tool APNSManager
+                       a apns processing tool APNSManager。APNSManager is a apns processing tool。
 
                        DESC
   s.homepage         = "https://github.com/alex520biao/ALAPNSManager"
