@@ -84,11 +84,10 @@
  */
 -(void)insertOrUpdate:(ALNodeFilter*)filter atKeyPath:(ALKeyPath*)keyPath{
     NSArray *pathComponents = [ALAPNSTool pathComponentsFromKeyPath:keyPath];
-    NSInteger index = 0;
-    
     ALNode *node = self;
-    while (index < pathComponents.count) {
-        NSString* pathComponent = pathComponents[index];
+    
+    for (int i=0; i<pathComponents.count; i++) {
+        NSString* pathComponent = pathComponents[i];
         
         //检查子节点是否存在
         if (![node.subNodes objectForKey:pathComponent]) {
@@ -100,12 +99,10 @@
         node = [node subNodeForName:pathComponent];
         
         //pathComponents数组最后一个则为监听项，增加NodeFilter
-        if (index == pathComponents.count-1 && filter.block && node) {
+        if (i == pathComponents.count-1 && filter.block && node) {
             //插入或更新
             [node insertOrUpdate:filter];
         }
-        
-        index++;
     }
 }
 
