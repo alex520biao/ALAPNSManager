@@ -23,7 +23,7 @@
 
 
 /*!
- *  @brief 节点名称
+ *  @brief 节点名称(不能重名)
  */
 @property (nonatomic, copy) NSString *nodeName;
 
@@ -39,6 +39,7 @@
 
 /*!
  *  @brief 根据子节点名称获取子节点ALNode
+ *  @note  只在子节点中查找,不查询后代节点
  *
  *  @param subNodeName 子节点名称
  *
@@ -63,12 +64,47 @@
 -(ALNodeFilter*)equalNodeFilter:(ALNodeFilter*)filter;
 
 /*!
+ *  @brief 指定keyPath子节点添加filter(存在则更新，不存在则添加)
+ *
+ *  @param filter
+ *  @param keyPath  从self节点获取keyPath子节点
+ */
+-(void)insertOrUpdate:(ALNodeFilter*)filter atKeyPath:(ALKeyPath*)keyPath;
+
+/*!
  *  @brief 存在则更新，不存在则添加
  *
  *  @param filter
  */
 -(void)insertOrUpdate:(ALNodeFilter*)filter;
 
+/*!
+ *  @brief 删除keyPath对应的node的filter
+ *
+ *  @param filter
+ *  @param keyPath 
+ */
+-(void)removeNodeFilter:(ALNodeFilter *)filter atKeyPath:(ALKeyPath*)keyPath;
+
+
+/*!
+ *  @brief 通过keyPath获取ALNode节点
+ *  @note  从node树中查找keyPath对应的节点项node
+ *
+ *  @param keyPath
+ *
+ *  @return
+ */
+-(ALNode*)nodeForKeyPath:(ALKeyPath*)keyPath;
+
+/*!
+ *  @brief 根据ALNodel反向查找ALKeyPath
+ *
+ *  @param node 节点对象
+ *
+ *  @return
+ */
+-(ALKeyPath*)keyPathOfNode:(ALNode*)node;
 
 @end
 

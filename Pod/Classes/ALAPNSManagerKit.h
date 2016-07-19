@@ -10,7 +10,9 @@
 #define ALAPNSManagerKit_h
 
 #import "ALAPNSManager.h"
+#import "ALAPNSManager+TestCase.h"
 #import "ALAPNSMsg.h"
 #import "APNSManagerDelegate.h"
+#import "ALAPNSTool.h"
 
 #endif /* ALAPNSManagerKit_h */

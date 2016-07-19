@@ -9,27 +9,9 @@
 #import "ALAPNSManager.h"
 #import "ALAPNSMsg.h"
 #import "ALNode.h"
+#import "ALAPNSTool.h"
 
-#define iOS8AndAbove                        ([[UIDevice currentDevice].systemVersion floatValue] >= 8.f)
 #define kAPNS_deviceToken    @"APNS_deviceToken"
-
-static NSString * const ALNODE_NODENAME = @"__ALNODE_NODENAME__";
-
-static NSString * const ALNODE_BLOCK = @"__ALNODE_BLOCK__";
-
-static NSString * const ALNODE = @"__ALNODE__";
-
-
-//监听者
-static NSString * const ALNODE_OBSERVER = @"__ALNODE_OBSERVER__";
-
-//过滤值
-static NSString * const ALNODE_FilterValue = @"__ALNODE_FilterValue__";
-
-static NSString * const ALNODE_Filter = @"__ALNODE_Filter__";
-
-//通配符
-static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
 
 @interface ALAPNSManager ()
 
@@ -186,67 +168,6 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
 }
 
 /*!
- *  @brief 从self.routes树中查找keyPath对应的节点项node
- *
- *  @param url
- *
- *  @return
- */
-- (ALNode *)nodeFromKeyPath:(ALKeyPath *)keyPath{
-    ALNode* subNode = self.rootNode;
-    NSArray* pathComponents = [self pathComponentsFromKeyPath:keyPath];
-    
-    // borrowed from HHRouter(https://github.com/Huohua/HHRouter)
-    for (NSString* pathComponent in pathComponents) {
-        BOOL found = NO;
-        
-        // 对 key 进行排序，这样可以把 ~ 放到最后
-        NSArray *subRoutesKeys =[subNode.subNodes.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-            return [obj1 compare:obj2];
-        }];
-        
-        for (NSString* key in subRoutesKeys) {
-            //根据subNodeName获取subNode
-            if ([key isEqualToString:pathComponent] || [key isEqualToString:ALURL_WILDCARD_CHARACTER]) {
-                found = YES;
-                subNode = [subNode subNodeForName:key];
-                break;
-            }
-        }
-        // 如果没有找到该pathComponents对应的node,则直接返回nil
-        if (!found) {
-            subNode = nil;
-            break;
-        }
-    }
-    return subNode;
-}
-
-
-/*!
- *  @brief KeyPath字符串截取
- *
- *  @param keyPath
- *
- *  @return 数组pathComponents
- */
-- (NSArray*)pathComponentsFromKeyPath:(ALKeyPath*)keyPath{
-    NSArray *pathComponents = [keyPath componentsSeparatedByString:@"."];
-    return [pathComponents copy];
-}
-
-/*!
- *  @brief pathList转换为KeyPath字符串
- *
- *  @param list
- *
- *  @return
- */
--(NSString*)keyPathWithArray:(NSArray*)list{
-    return [list componentsJoinedByString:@"."];
-}
-
-/*!
  *  @brief 遍历树获得所有监听项
  *
  *  @return 当前所有监听项
@@ -257,7 +178,6 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
     [self iteratorDictionary:self.rootNode
                    tempArray:tempArray
                        array:[NSMutableArray array]];
-    
     return tempArray;
 }
 
@@ -272,12 +192,12 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
     //非根节点且nodeName不为空，保存nodeName到pathList中
     if (!node.rootNode && node.nodeName) {
         [pathList addObject:node.nodeName];
-    }
-    
-    //此节点有监听者,则保存此keyPath到tempArray
-    if (node.nodeFilters && node.nodeFilters.count>0) {
-        NSString *keyPath = [self keyPathWithArray:pathList];
-        [tempArray addObject:keyPath];
+        
+        //此节点有监听者,则保存此keyPath到tempArray
+        if (node.nodeFilters && node.nodeFilters.count>0) {
+            NSString *keyPath = [ALAPNSTool keyPathWithArray:pathList];
+            [tempArray addObject:keyPath];
+        }
     }
     
     //非叶子节点
@@ -311,34 +231,11 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
               observer:(id)observer
                handler:(ALAPNSMsgHandler)handler{
     
-    NSArray *pathComponents = [self pathComponentsFromKeyPath:keyPath];
-    NSInteger index = 0;
-    
-    ALNode *node = self.rootNode;
-    while (index < pathComponents.count) {
-        NSString* pathComponent = pathComponents[index];
-        
-        //检查子节点是否存在
-        if (![node.subNodes objectForKey:pathComponent]) {
-            ALNode *subNode = [[ALNode alloc] init];
-            subNode.nodeName = pathComponent;
-            [node.subNodes setObject:subNode forKey:pathComponent];
-        }
-        
-        node = [node subNodeForName:pathComponent];
-        
-        //pathComponents数组最后一个则为监听项，增加NodeFilter
-        if (index == pathComponents.count-1 && handler && node) {
-            ALNodeFilter *filter = [[ALNodeFilter alloc] init];
-            filter.observer     = observer;
-            filter.block        = handler;
-            filter.filterValue  = value;
-            //插入或更新
-            [node insertOrUpdate:filter];
-        }
-        
-        index++;
-    }
+    ALNodeFilter *filter = [[ALNodeFilter alloc] init];
+    filter.observer     = observer;
+    filter.block        = handler;
+    filter.filterValue  = value;
+    [self.rootNode insertOrUpdate:filter atKeyPath:keyPath];
 }
 
 /*!
@@ -352,7 +249,11 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
              filterValue:(NSString*)value
                 observer:(id)observer{
     
-
+    ALNodeFilter *filter = [[ALNodeFilter alloc] init];
+    filter.observer     = observer;
+    filter.filterValue  = value;
+    filter.block        = nil;
+    [self.rootNode removeNodeFilter:filter atKeyPath:keyPath];
 }
 
 #pragma mark - handleAPNSMsg
@@ -402,8 +303,8 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
             id obj = [msg.apnsDict valueForKeyPath:keyPath];
             if (obj && [obj respondsToSelector:@selector(stringValue)]) {
                 NSString *strValue = [obj stringValue];
-                ALNode *node = [self nodeFromKeyPath:keyPath];
-                
+                ALNode *node = [self.rootNode nodeForKeyPath:keyPath];
+
                 for (int j =0; j<node.nodeFilters.count; j++) {
                     ALNodeFilter * filter = [node.nodeFilters objectAtIndex:j];
                     //observer不能为nil
@@ -416,50 +317,11 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
             }
         }
         @catch (NSException *exception) {
-            //异常处理
+            //未找到此KeyPath路径
             //NSLog(@"exception: %@",exception.name);
         }
         
     }
-}
-
-#pragma mark - TEST
-/*!
- *  @brief 模拟APNS消息启动app所需launchOptions
- *  @note  可在application:didFinishLaunchingWithOptions中给launchOptions赋值用于模拟APNS消息启动app
- *
- *  @return
- */
-+(NSMutableDictionary*)launchOptionsWithRemoteNotification_TestWebPage{
-    //测试webPage的APNS消息
-    NSString *str = @"{\"aps\":{\"alert\":\"your message here.\",\"badge\":9,\"sound\":\"default\"},\"acme1\":\"bar\",\"acme2\":42,\"payload\":{\"lt\":259,\"aid\":\"100333\",\"ty\":100,\"lv\":\"http: //www.hao123.com/\",\"content\":\"\\u8fd9\\u662f\\u6d4b\\u8bd5\\u6d88\\u606f\"}}";
-    
-    NSMutableDictionary *launchOptions = [ALAPNSManager launchOptionsWithRemoteJSON:str];
-    return launchOptions;
-}
-
-/*!
- *  @brief  根据remoteJSON构造launchOptions
- *
- *  @param remoteJSON
- *
- *  @return
- */
-+(NSMutableDictionary*)launchOptionsWithRemoteJSON:(NSString*)remoteJSON{
-    NSMutableDictionary *launchOptions = nil;
-    if(remoteJSON){
-        NSData* remoteData = [remoteJSON dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error = nil;
-        NSMutableDictionary *remoteDict = [NSJSONSerialization JSONObjectWithData:remoteData
-                                                                          options:NSJSONReadingMutableLeaves
-                                                                            error:&error];
-        
-        if(remoteDict && !error){
-            launchOptions = [NSMutableDictionary dictionaryWithObject:remoteDict
-                                                               forKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        }
-    }
-    return launchOptions;
 }
 
 @end

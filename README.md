@@ -34,3 +34,4 @@ ALAPNSManager is available under the MIT license. See the LICENSE file for more 
 2. APNSManager可以使用多条件添加监听
 3. 使用KeyPath添加监听项
 4. 支持多对多监听关系
+5. handleAPNSMsg方法中应该添加回调,将有filter的逐个回调进行处理。
