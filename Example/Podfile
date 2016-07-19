@@ -1,0 +1,41 @@
+#source 'https://xxxx/cocoapods-specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+# We don't use Swift internally. Disable this option.
+#use_frameworks!
+
+# Use local pod code if available.
+def local_pod(name, *args)
+  path = File.expand_path name, '../..'
+
+  if File.exist? path
+    pod name, :path => path
+  else
+    pod name, *args
+  end
+end
+
+# Add global dependencies here.
+
+target 'ALAPNSManager_Example', :exclusive => true do
+  # If ALAPNSManager depends on any private pod, remember to use `local_pod`
+  # to refer it explicitly.
+  # CocoaPods cannot distinguish public and private pod from podspec right now,
+  # it's required to do so in Podfile.
+  #
+  # Sample:
+  #   local_pod "AnInternalPod", :git => "https://github.com/alex520biao/path/to/pod.git", :tag => "stable-tag"
+
+  # Add Example specific dependencies here...
+
+  pod "ALAPNSManager", :path => "../"
+end
+
+target 'ALAPNSManager_Tests', :exclusive => true do
+  # Add Tests specific dependencies here...
+
+  pod "ALAPNSManager", :path => "../"
+
+  pod 'Specta'
+  pod 'Expecta'
+end
