@@ -7,11 +7,9 @@
 //
 
 @import UIKit;
-#import <ALAPNSManager/ALAPNSManagerKit.h>
 
 @interface ALViewController : UIViewController
 
-@property (nonatomic, strong) ALAPNSManager *apnsManager;
 
 
 @end

@@ -8,11 +8,13 @@
 
 #import "ALAppDelegate.h"
 #import "ALViewController.h"
+#import "ALService.h"
 
 #import <ALAPNSManager/ALAPNSManagerKit.h>
 
 @interface ALAppDelegate ()
 @property(nonatomic,strong)ALAPNSManager *apnsManager;
+@property(nonatomic,strong)ALService *service;
 
 @end
 
@@ -36,12 +38,16 @@
     self.naviController = nav;
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
-    mainViewController.apnsManager = self.apnsManager;
     
     /*!
      *  @brief 注册iOS系统 APNS消息
      */
     [self.apnsManager registerForRemoteNotification];
+    
+    ALService *service = [[ALService alloc] init];
+    service.apnsManager = self.apnsManager;
+    self.service = service;
+    [self.service serviceDidLoad];
     
 #warning 测试
     launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];    

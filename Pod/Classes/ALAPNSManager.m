@@ -73,9 +73,6 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
         if(deviceToken){
             _deviceToken = deviceToken;
         }
-        
-        
-        _tempArray = [NSMutableArray array];
     }
     return self;
 }

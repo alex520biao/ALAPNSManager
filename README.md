@@ -32,3 +32,4 @@ ALAPNSManager is available under the MIT license. See the LICENSE file for more 
 
 ####TODO
 1. APNSManager不使用单例
+2. APNSManager可以使用多条件添加监听
