@@ -53,6 +53,22 @@
  */
 -(BOOL)leafNode;
 
+/*!
+ *  @brief 获取相同的ALNodeFilter
+ *
+ *  @param object
+ *
+ *  @return
+ */
+-(ALNodeFilter*)equalNodeFilter:(ALNodeFilter*)filter;
+
+/*!
+ *  @brief 存在则更新，不存在则添加
+ *
+ *  @param filter
+ */
+-(void)insertOrUpdate:(ALNodeFilter*)filter;
+
 
 @end
 

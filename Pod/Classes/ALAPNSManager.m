@@ -290,8 +290,9 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
             if ([obj isKindOfClass:[ALNode class]]) {
                 ALNode *subNode = (ALNode*)obj;
                 if (subNode.nodeName && subNode.nodeName.length>0) {
-                    //递归查询子节点
-                    [self iteratorDictionary:subNode tempArray:tempArray array:pathList];
+                    //递归查询子节点,需要新建pathList数组
+                    NSMutableArray *list = [NSMutableArray arrayWithArray:pathList];
+                    [self iteratorDictionary:subNode tempArray:tempArray array:list];
                 }
             }
         }];
@@ -333,12 +334,12 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
             filter.observer     = observer;
             filter.block        = handler;
             filter.filterValue  = value;
-            [node.nodeFilters addObject:filter];
+            //插入或更新
+            [node insertOrUpdate:filter];
         }
         
         index++;
     }
-    NSLog(@"");
 }
 
 /*!
