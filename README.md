@@ -29,7 +29,8 @@ alex520biao <alex520biao@163.com>
 
 ALAPNSManager is available under the MIT license. See the LICENSE file for more info.
 
-
 ####TODO
-1. APNSManager不使用单例
+1. APNSManager不使用单例,可以创建多实例多处使用
 2. APNSManager可以使用多条件添加监听
+3. 使用KeyPath添加监听项
+4. 支持多对多监听关系

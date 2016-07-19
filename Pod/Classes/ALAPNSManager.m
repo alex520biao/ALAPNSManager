@@ -406,7 +406,8 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
                 
                 for (int j =0; j<node.nodeFilters.count; j++) {
                     ALNodeFilter * filter = [node.nodeFilters objectAtIndex:j];
-                    if (filter.filterValue && [strValue isEqualToString:filter.filterValue]) {
+                    //observer不能为nil
+                    if (filter.observer && filter.filterValue && [strValue isEqualToString:filter.filterValue]) {
                         if (filter.block) {
                             filter.block(msg);
                         }
