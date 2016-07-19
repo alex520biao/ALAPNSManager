@@ -22,74 +22,74 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     //NO
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"xxxx.att"
-                                     filterValue:@"100"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                             NSLog(@"");
-                                             return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"xxxx.att"
+                         filterValue:@"100"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
     
     //NO
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"payload"
-                                     filterValue:@"100"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                            NSLog(@"");
-                                            return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"payload"
+                         filterValue:@"100"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
     
     //NO
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"payload"
-                                     filterValue:@"101"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                             NSLog(@"");
-                                             return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"payload"
+                         filterValue:@"101"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
 
     //NO
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"payload.lt.ABC"
-                                     filterValue:@"100"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                             NSLog(@"");
-                                             return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"payload.lt.ABC"
+                         filterValue:@"100"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
     //YES
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"payload.lt"
-                                     filterValue:@"259"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                             NSLog(@"");
-                                             return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"payload.lt"
+                         filterValue:@"259"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
 
     //YES
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"payload.lt"
-                                     filterValue:@"259"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                             NSLog(@"");
-                                             return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"payload.lt"
+                         filterValue:@"259"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
 
     //NO
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"payload.ty"
-                                     filterValue:@"100"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                             NSLog(@"");
-                                             return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"payload.ty"
+                         filterValue:@"100"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
     
-    [self.apnsManager addAPNSPatternWithObserver:self
-                                         keyPath:@"payload.ty"
-                                     filterValue:@"100"
-                                         handler:^id(ALAPNSMsg *msg) {
-                                             NSLog(@"");
-                                             return nil;
-                                         }];
+    [self.apnsManager addAPNSPattern:@"payload.ty"
+                         filterValue:@"100"
+                            observer:self
+                             handler:^id(ALAPNSMsg *msg) {
+                                 NSLog(@"");
+                                 return nil;
+                             }];
 
 }
 

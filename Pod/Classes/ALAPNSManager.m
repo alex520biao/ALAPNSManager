@@ -302,16 +302,18 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
 #pragma mark - Observer监听注册管理
 /*!
  *  @brief 添加一个监听项
+ *  @note  相同的observer、相同keyPath、相同value，则覆盖只保留最后一次监听
  *
  *  @param observer 监听者
  *  @param keyPath  keyPath
  *  @param value    监听值
  *  @param handler  监听者回调
  */
-- (void)addAPNSPatternWithObserver:(id)observer
-                           keyPath:(ALKeyPath *)keyPath
-                       filterValue:(NSString*)value
-                           handler:(ALAPNSMsgHandler)handler{
+- (void)addAPNSPattern:(ALKeyPath *)keyPath
+           filterValue:(NSString *)value
+              observer:(id)observer
+               handler:(ALAPNSMsgHandler)handler{
+    
     NSArray *pathComponents = [self pathComponentsFromKeyPath:keyPath];
     NSInteger index = 0;
     
@@ -349,11 +351,11 @@ static NSString * const ALURL_WILDCARD_CHARACTER = @"~";
  *  @param keyPath  keyPath
  *  @param value    监听值
  */
--(void)removeAPNSPatternWithObserver:(id)observer
-                             keyPath:(ALKeyPath *)keyPath
-                         filterValue:(NSString*)value{
+-(void)removeAPNSPattern:(ALKeyPath *)keyPath
+             filterValue:(NSString*)value
+                observer:(id)observer{
+    
 
-#warning todo
 }
 
 #pragma mark - handleAPNSMsg

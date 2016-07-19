@@ -76,10 +76,10 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  *  @param value    监听值
  *  @param handler  监听者回调
  */
-- (void)addAPNSPatternWithObserver:(id)observer
-                           keyPath:(ALKeyPath *)keyPath
-                       filterValue:(NSString*)value
-                           handler:(ALAPNSMsgHandler)handler;
+- (void)addAPNSPattern:(ALKeyPath *)keyPath
+           filterValue:(NSString *)value
+              observer:(id)observer
+               handler:(ALAPNSMsgHandler)handler;
 
 /*!
  *  @brief 删除一个监听项
@@ -88,11 +88,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  *  @param keyPath  keyPath
  *  @param value    监听值
  */
--(void)removeAPNSPatternWithObserver:(id)observer
-                             keyPath:(ALKeyPath *)keyPath
-                         filterValue:(NSString*)value;
-
-
+-(void)removeAPNSPattern:(ALKeyPath *)keyPath
+             filterValue:(NSString*)value
+                observer:(id)observer;
 
 #pragma mark - handleAPNSMsg
 /*!
