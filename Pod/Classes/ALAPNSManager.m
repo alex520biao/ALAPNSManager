@@ -301,10 +301,16 @@
         @try {
             //此消息是否满足监听条件一
             id obj = [msg.apnsDict valueForKeyPath:keyPath];
-            if (obj && [obj respondsToSelector:@selector(stringValue)]) {
-                NSString *strValue = [obj stringValue];
+            NSString *strValue = nil;
+            if ([obj isKindOfClass:[NSString class]]) {
+                strValue = (NSString*)obj;
+            }else if(obj && [obj respondsToSelector:@selector(stringValue)]){
+                strValue = [obj stringValue];
+            }
+            
+            if (strValue) {
                 ALNode *node = [self.rootNode nodeForKeyPath:keyPath];
-
+                
                 for (int j =0; j<node.nodeFilters.count; j++) {
                     ALNodeFilter * filter = [node.nodeFilters objectAtIndex:j];
                     //observer不能为nil
