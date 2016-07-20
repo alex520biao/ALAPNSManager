@@ -1,5 +1,5 @@
 PODS:
-  - ALAPNSManager (0.1.0)
+  - ALAPNSManager (0.1.1)
   - Expecta (1.0.5)
   - Specta (1.0.5)
 
@@ -13,7 +13,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  ALAPNSManager: d510298e1ad56251829d47bb15815f7eb9be1f2b
+  ALAPNSManager: 650360f4dad600ebdb027536fd4b4d053d3ce3ca
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
 

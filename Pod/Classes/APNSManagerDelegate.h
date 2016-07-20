@@ -23,7 +23,7 @@ typedef NSString ALKeyPath;
  *
  *  @return
  */
-typedef id (^ALAPNSMsgHandler)(ALAPNSMsg *msg);
+typedef void (^ALAPNSMsgHandler)(ALAPNSMsg *msg);
 
 
 

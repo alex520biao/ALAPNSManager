@@ -19,53 +19,47 @@
     [self.apnsManager addAPNSPattern:@"xxxx.att"
                          filterValue:@"100"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
     
     //NO
     [self.apnsManager addAPNSPattern:@"payload"
                          filterValue:@"100"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
     
     //NO
     [self.apnsManager addAPNSPattern:@"payload"
                          filterValue:@"101"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
     
     //NO
     [self.apnsManager addAPNSPattern:@"payload.lt.ABC"
                          filterValue:@"100"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
     //YES
     [self.apnsManager addAPNSPattern:@"payload.lt"
                          filterValue:@"259"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
     
     //YES
     [self.apnsManager addAPNSPattern:@"payload.lt"
                          filterValue:@"259"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
     
     
@@ -74,17 +68,15 @@
     [self.apnsManager addAPNSPattern:@"payload.ty"
                          filterValue:@"100"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
     
     [self.apnsManager addAPNSPattern:@"payload.ty"
                          filterValue:@"100"
                             observer:self
-                             handler:^id(ALAPNSMsg *msg) {
+                             handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
-                                 return nil;
                              }];
 }
 

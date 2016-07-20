@@ -55,6 +55,11 @@ typedef NS_ENUM(NSInteger, APNSMsgSceneType) {
  */
 +(ALAPNSMsg*)apnsMsgWithDidReceiveRemoteNotification:(NSDictionary*)remoteDict;
 
+
+- (instancetype)initWithSceneType:(APNSMsgSceneType)sceneType
+                         apnsDict:(NSDictionary*)apnsDict
+                 applicationState:(UIApplicationState)state;
+
 #pragma mark - APNS相关参数
 /*!
  *  @brief  APNS消息传递到客户端的场景
