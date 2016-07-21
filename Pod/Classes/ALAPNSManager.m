@@ -295,8 +295,22 @@
  *  @param msg
  */
 -(void)handleAPNSMsg:(ALAPNSMsg*)msg{
+    //should默认为YES
+    BOOL should = YES;
+    if ([self.delegate respondsToSelector:@selector(apnsManager:shouldPublishAPNSMsg:)]) {
+        should = [self.delegate apnsManager:self shouldPublishAPNSMsg:msg];
+    }
+
+    //should为NO则直接丢弃此消息
+    if(!should){
+        return;
+    }
+    
     //遍历树获得所有监听项
     NSMutableArray *tempArray = [self iteratorRouteNode];
+    
+    //filters临时存储此消息接收者
+    NSMutableArray<ALNodeFilter*> *filters = [[NSMutableArray<ALNodeFilter*> alloc] init];
     
     //self.tempArray为所有监听项
     for (int i = 0 ; i<tempArray.count; i++) {
@@ -321,6 +335,8 @@
                     if (filter.observer && filter.filterValue && [strValue isEqualToString:filter.filterValue]) {
                         if (filter.block) {
                             filter.block(msg);
+                            
+                            [filters addObject:filter];
                         }
                     }
                 }
@@ -331,6 +347,13 @@
             //NSLog(@"exception: %@",exception.name);
         }
         
+    }
+    
+    //发布完成
+    if ([self.delegate respondsToSelector:@selector(apnsManager:didPublishAPNSMsg:filter:)]) {
+        [self.delegate apnsManager:self
+                 didPublishAPNSMsg:msg
+                            filter:filters];
     }
 }
 

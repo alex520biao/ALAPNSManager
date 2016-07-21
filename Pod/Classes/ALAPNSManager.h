@@ -30,6 +30,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  */
 @interface ALAPNSManager : NSObject
 
+@property (nonatomic, weak) id<APNSManagerDelegate> delegate;
+
+
 #pragma mark - register
 /*!
  *  @brief  默认定义APNS通知
@@ -66,6 +69,24 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  */
 - (void)deleteDeviceToken;
 
+#pragma mark - handleAPNSMsg
+/*!
+ *  @brief  接收并处理启动应用程序时的APNSMsg
+ *
+ *  @param launchOptions appdelegate从application:didFinishLaunchingWithOptions启动参数
+ *
+ */
+-(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions;
+
+
+/*!
+ *  @brief  接收并处理正常情况下接收的APNSMsg消息
+ *
+ *  @param  remoteDict appdelegate从application:didReceiveRemoteNotification入口参数
+ *
+ */
+-(void)handleAPNSMsgWithDidReceiveRemoteNotification:(NSDictionary*)remoteDict;
+
 #pragma mark - Observer监听注册管理
 /*!
  *  @brief 添加一个监听项
@@ -91,23 +112,5 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
 -(void)removeAPNSPattern:(ALKeyPath *)keyPath
              filterValue:(NSString*)value
                 observer:(id)observer;
-
-#pragma mark - handleAPNSMsg
-/*!
- *  @brief  接收并处理启动应用程序时的APNSMsg
- *
- *  @param launchOptions appdelegate从application:didFinishLaunchingWithOptions启动参数
- *
- */
--(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions;
-
-
-/*!
- *  @brief  接收并处理正常情况下接收的APNSMsg消息
- *
- *  @param  remoteDict appdelegate从application:didReceiveRemoteNotification入口参数
- *
- */
--(void)handleAPNSMsgWithDidReceiveRemoteNotification:(NSDictionary*)remoteDict;
 
 @end

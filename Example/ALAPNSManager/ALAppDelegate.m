@@ -12,7 +12,7 @@
 
 #import <ALAPNSManager/ALAPNSManagerKit.h>
 
-@interface ALAppDelegate ()
+@interface ALAppDelegate ()<APNSManagerDelegate>
 @property(nonatomic,strong)ALAPNSManager *apnsManager;
 @property(nonatomic,strong)ALService *service;
 
@@ -43,6 +43,7 @@
      *  @brief 注册iOS系统 APNS消息
      */
     [self.apnsManager registerForRemoteNotification];
+    self.apnsManager.delegate = self;
     
     ALService *service = [[ALService alloc] init];
     service.apnsManager = self.apnsManager;
@@ -98,5 +99,31 @@
     //APNS消息处理
     [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
 }
+
+#pragma mark - APNSManagerDelegate
+/*!
+ *  @brief 是否向将此APNS消息进入发布流程
+ *
+ *  @param manager
+ *  @param msg
+ */
+- (BOOL)apnsManager:(ALAPNSManager *)manager shouldPublishAPNSMsg:(ALAPNSMsg *)msg{
+    
+
+    return YES;
+}
+
+/*!
+ *  @brief APNS消息已经分发处理完成
+ *
+ *  @param manager
+ *  @param msg
+ *  @param filters filters为0则消息没有接收者,大于零则说明有多个接收者
+ */
+- (void)apnsManager:(ALAPNSManager *)manager didPublishAPNSMsg:(ALAPNSMsg *)msg filter:(NSArray<ALNodeFilter *>*)filters{
+    
+
+}
+
 
 @end
