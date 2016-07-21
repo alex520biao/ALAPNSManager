@@ -267,8 +267,10 @@
     //封装
     ALAPNSMsg *msg = [ALAPNSMsg apnsMsgWithLaunchOptions:launchOptions];
     
-    //分发
-    [self handleAPNSMsg:msg];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //分发
+        [self handleAPNSMsg:msg];
+    });
 }
 
 /*!
@@ -281,8 +283,10 @@
     //封装
     ALAPNSMsg *msg = [ALAPNSMsg apnsMsgWithDidReceiveRemoteNotification:remoteDict];
     
-    //分发
-    [self handleAPNSMsg:msg];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //分发
+        [self handleAPNSMsg:msg];
+    });
 }
 
 /*!
