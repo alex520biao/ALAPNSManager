@@ -7,6 +7,7 @@
 //
 
 #import "ALAPNSMsg.h"
+#import "ALAPNSTool.h"
 
 @interface ALAPNSMsg ()
 
@@ -136,6 +137,28 @@
         return nil;
     }
     return nil;
+}
+
+//APNSMsgSceneType转换为NSString
+#define APNSMsgSceneType_TO_STRING(enumType)  [NSString stringWithCString:APNSMsgSceneType_CSTR(enumType) encoding:NSASCIIStringEncoding]
+#define APNSMsgSceneType_TO_CSTR_CASE(enumType)   case enumType: return(#enumType);
+const char *APNSMsgSceneType_CSTR(APNSMsgSceneType type) {
+    switch (type) {
+            APNSMsgSceneType_TO_CSTR_CASE(APNSMsgSceneType_Launch)
+            APNSMsgSceneType_TO_CSTR_CASE(APNSMsgSceneType_Awake)
+            APNSMsgSceneType_TO_CSTR_CASE(APNSMsgSceneType_Active)
+        default:break;
+    }
+}
+
+-(NSString*)description{
+    NSString *description = [super description];
+    if (description) {
+        description = [NSString stringWithFormat:@"%@ \n sceneType: %@ \n apns: %@",
+                       description,APNSMsgSceneType_TO_STRING(self.sceneType),[self.apnsDict description]];
+    }
+
+    return description;
 }
 
 @end

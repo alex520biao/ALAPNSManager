@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "ALAPNSManagerDelegate.h"
 
+/*!
+ * 枚举转换为NSString
+ * C宏中的＃表示将之后的传入参数当作字符串处理
+ * enumType为枚举值,返回NSString
+ */
+#define ALENUM_TO_STRING(enumType)   [NSString stringWithCString:#enumType encoding:NSASCIIStringEncoding]
+
 #define iOS8AndAbove                        ([[UIDevice currentDevice].systemVersion floatValue] >= 8.f)
 
 @interface ALAPNSTool : NSObject

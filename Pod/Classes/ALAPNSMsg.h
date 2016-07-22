@@ -102,4 +102,7 @@ typedef NS_ENUM(NSInteger, APNSMsgSceneType) {
 -(NSDictionary*)payload;
 
 
+#pragma mark - 重写description
+-(NSString*)description;
+
 @end

@@ -12,7 +12,7 @@
 #import "ALAPNSManager.h"
 #import "ALAPNSManager+TestCase.h"
 #import "ALAPNSMsg.h"
-#import "APNSManagerDelegate.h"
+#import "ALAPNSManagerDelegate.h"
 #import "ALAPNSTool.h"
 #import "ALNode.h"
 
