@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "APNSManagerDelegate.h"
+#import "ALAPNSManagerDelegate.h"
 
 @class ALAPNSMsg;
 

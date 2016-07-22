@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "APNSManagerDelegate.h"
+#import "ALAPNSManagerDelegate.h"
 
 #define iOS8AndAbove                        ([[UIDevice currentDevice].systemVersion floatValue] >= 8.f)
 
