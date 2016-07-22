@@ -36,15 +36,6 @@
 
 @implementation ALAPNSManager
 
-+ (instancetype) sharedInstance{
-    static ALAPNSManager * __sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        __sharedInstance = [[self alloc] init];
-    });
-    return __sharedInstance;
-}
-
 - (instancetype)init
 {
     self = [super init];
