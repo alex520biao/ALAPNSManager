@@ -14,5 +14,6 @@
 #import "ALAPNSMsg.h"
 #import "APNSManagerDelegate.h"
 #import "ALAPNSTool.h"
+#import "ALNode.h"
 
 #endif /* ALAPNSManagerKit_h */

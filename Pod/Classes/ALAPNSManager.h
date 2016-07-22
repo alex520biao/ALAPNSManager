@@ -30,7 +30,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  */
 @interface ALAPNSManager : NSObject
 
-@property (nonatomic, weak) id<APNSManagerDelegate> delegate;
+@property (nonatomic, weak) id<ALAPNSManagerDelegate> delegate;
 
 
 #pragma mark - register

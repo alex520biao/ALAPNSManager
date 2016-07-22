@@ -27,7 +27,7 @@ typedef NSString ALKeyPath;
  */
 typedef void (^ALAPNSMsgHandler)(ALAPNSMsg *msg);
 
-@protocol APNSManagerDelegate <NSObject>
+@protocol ALAPNSManagerDelegate <NSObject>
 
 @optional
 

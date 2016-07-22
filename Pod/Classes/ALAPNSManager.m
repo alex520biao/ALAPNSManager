@@ -25,16 +25,10 @@
  */
 @property (nonatomic,strong) ALNode *rootNode;
 
-
-/*!
- *  @brief 用于临时存储当前存在监听者的KeyPath集合,有新消息来时则可以遍历检查此集合满足条件则进行监听响应
- */
-@property (nonatomic) NSMutableArray *tempArray;
-
-
 @end
 
 @implementation ALAPNSManager
+
 
 - (instancetype)init
 {
@@ -303,7 +297,7 @@
     //filters临时存储此消息接收者
     NSMutableArray<ALNodeFilter*> *filters = [[NSMutableArray<ALNodeFilter*> alloc] init];
     
-    //self.tempArray为所有监听项
+    //tempArray为所有监听项
     for (int i = 0 ; i<tempArray.count; i++) {
         NSString *keyPath = [tempArray objectAtIndex:i];
         

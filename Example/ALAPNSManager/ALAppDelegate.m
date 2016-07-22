@@ -12,7 +12,7 @@
 
 #import <ALAPNSManager/ALAPNSManagerKit.h>
 
-@interface ALAppDelegate ()<APNSManagerDelegate>
+@interface ALAppDelegate ()<ALAPNSManagerDelegate>
 @property(nonatomic,strong)ALAPNSManager *apnsManager;
 @property(nonatomic,strong)ALService *service;
 
