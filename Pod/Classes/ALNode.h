@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ALAPNSManagerDelegate.h"
+#import "ALAPNSManagerSubProtocol.h"
 
 @class ALNodeFilter;
 

@@ -201,7 +201,7 @@
     }
 }
 
-#pragma mark - Observer监听注册管理
+#pragma mark - ALAPNSManagerSubProtocol - 实现订阅协议
 /*!
  *  @brief 添加一个监听项
  *  @note  相同的observer、相同keyPath、相同value，则覆盖只保留最后一次监听
@@ -241,7 +241,7 @@
     [self.rootNode removeNodeFilter:filter atKeyPath:keyPath];
 }
 
-#pragma mark - handleAPNSMsg
+#pragma mark - ALAPNSManagerPubProtocol  - 实现发布协议
 /*!
  *  @brief  接收并处理启动应用程序时的APNSMsg
  *

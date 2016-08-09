@@ -19,7 +19,7 @@
  */
 +(NSMutableDictionary*)launchOptionsWithRemoteNotification_TestWebPage{
     //测试webPage的APNS消息
-    NSString *str = @"{\"aps\":{\"alert\":\"your message here.\",\"badge\":9,\"sound\":\"default\"},\"acme1\":\"bar\",\"acme2\":42,\"payload\":{\"lt\":259,\"aid\":\"100333\",\"ty\":100,\"lv\":\"http: //www.hao123.com/\",\"content\":\"\\u8fd9\\u662f\\u6d4b\\u8bd5\\u6d88\\u606f\"}}";
+    NSString *str = @"{\"aps\":{\"alert\":\"your message here.\",\"badge\":9,\"sound\":\"default\"},\"acme1\":\"bar\",\"acme2\":42,\"payload\":{\"lt\":259,\"aid\":\"100333\",\"ty\":100,\"lv\":\"http://www.hao123.com/\",\"content\":\"\\u8fd9\\u662f\\u6d4b\\u8bd5\\u6d88\\u606f\"}}";
     
     NSMutableDictionary *launchOptions = [ALAPNSManager launchOptionsWithRemoteJSON:str];
     return launchOptions;

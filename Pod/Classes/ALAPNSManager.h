@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ALAPNSManagerDelegate.h"
+#import "ALAPNSManagerPubProtocol.h"
+#import "ALAPNSManagerSubProtocol.h"
 
 @class ALAPNSMsg;
 
@@ -28,8 +30,11 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
 /*!
  *  @brief  APNS推送管理器: 管理APNS消息的一切事务
  */
-@interface ALAPNSManager : NSObject
+@interface ALAPNSManager : NSObject<ALAPNSManagerPubProtocol,ALAPNSManagerSubProtocol>
 
+/*!
+ *  @brief ALAPNSManagerDelegate代理
+ */
 @property (nonatomic, weak) id<ALAPNSManagerDelegate> delegate;
 
 
@@ -69,48 +74,8 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  */
 - (void)deleteDeviceToken;
 
-#pragma mark - handleAPNSMsg
-/*!
- *  @brief  接收并处理启动应用程序时的APNSMsg
- *
- *  @param launchOptions appdelegate从application:didFinishLaunchingWithOptions启动参数
- *
- */
--(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions;
+#pragma mark - ALAPNSManagerPubProtocol  - 实现发布协议
 
-
-/*!
- *  @brief  接收并处理正常情况下接收的APNSMsg消息
- *
- *  @param  remoteDict appdelegate从application:didReceiveRemoteNotification入口参数
- *
- */
--(void)handleAPNSMsgWithDidReceiveRemoteNotification:(NSDictionary*)remoteDict;
-
-#pragma mark - Observer监听注册管理
-/*!
- *  @brief 添加一个监听项
- *  @note  相同的observer、相同keyPath、相同value，则覆盖只保留最后一次监听
- *
- *  @param observer 监听者
- *  @param keyPath  keyPath
- *  @param value    监听值
- *  @param handler  监听者回调
- */
-- (void)addAPNSPattern:(ALKeyPath *)keyPath
-           filterValue:(NSString *)value
-              observer:(id)observer
-               handler:(ALAPNSMsgHandler)handler;
-
-/*!
- *  @brief 删除一个监听项
- *
- *  @param observer 监听者
- *  @param keyPath  keyPath
- *  @param value    监听值
- */
--(void)removeAPNSPattern:(ALKeyPath *)keyPath
-             filterValue:(NSString*)value
-                observer:(id)observer;
+#pragma mark - ALAPNSManagerSubProtocol  - 实现订阅协议
 
 @end

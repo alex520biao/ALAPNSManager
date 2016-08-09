@@ -18,15 +18,6 @@ typedef NSString ALKeyPath;
 @class ALAPNSManager;
 @class ALNodeFilter;
 
-/*!
- *  @brief APNS消息分发消息
- *
- *  @param apns消息
- *
- *  @return
- */
-typedef void (^ALAPNSMsgHandler)(ALAPNSMsg *msg);
-
 @protocol ALAPNSManagerDelegate <NSObject>
 
 @optional
