@@ -38,3 +38,5 @@ ALAPNSManager is available under the MIT license. See the LICENSE file for more 
 ####TODO
 1. removeAPNSPattern:observer: 删除observer的所有监听项
 2. 监听项需要随observer释放而自释放
+3. 封装KeyPath监听管理器，包含rootNode及KeyPath管理接口
+4. KeyPath监听管理器所有操作加入队列。rootNode的遍历及其他操作如果放在主线程有可能影响性能。
