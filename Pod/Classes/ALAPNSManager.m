@@ -301,37 +301,25 @@
     for (int i = 0 ; i<tempArray.count; i++) {
         NSString *keyPath = [tempArray objectAtIndex:i];
         
-        @try {
-            //此消息是否满足监听条件一
-            id obj = [msg.apnsDict valueForKeyPath:keyPath];
-            NSString *strValue = nil;
-            if ([obj isKindOfClass:[NSString class]]) {
-                strValue = (NSString*)obj;
-            }else if(obj && [obj respondsToSelector:@selector(stringValue)]){
-                strValue = [obj stringValue];
-            }
+        //此消息是否满足监听条件一
+        id obj = [msg.apnsDict al_valueForKeyPath:keyPath];
+        NSString *strValue = [ALAPNSTool stringValueWithObj:obj];
+        
+        if (strValue) {
+            ALNode *node = [self.rootNode nodeForKeyPath:keyPath];
             
-            if (strValue) {
-                ALNode *node = [self.rootNode nodeForKeyPath:keyPath];
-                
-                for (int j =0; j<node.nodeFilters.count; j++) {
-                    ALNodeFilter * filter = [node.nodeFilters objectAtIndex:j];
-                    //observer不能为nil
-                    if (filter.observer && filter.filterValue && [strValue isEqualToString:filter.filterValue]) {
-                        if (filter.block) {
-                            filter.block(msg);
-                            
-                            [filters addObject:filter];
-                        }
+            for (int j =0; j<node.nodeFilters.count; j++) {
+                ALNodeFilter * filter = [node.nodeFilters objectAtIndex:j];
+                //observer不能为nil
+                if (filter.observer && filter.filterValue && [strValue isEqualToString:filter.filterValue]) {
+                    if (filter.block) {
+                        filter.block(msg);
+                        
+                        [filters addObject:filter];
                     }
                 }
             }
         }
-        @catch (NSException *exception) {
-            //未找到此KeyPath路径
-            //NSLog(@"exception: %@",exception.name);
-        }
-        
     }
     
     //发布完成

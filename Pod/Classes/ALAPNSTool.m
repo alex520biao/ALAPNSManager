@@ -34,5 +34,38 @@
     return [list componentsJoinedByString:@"."];
 }
 
+#pragma mark - Other
+/*!
+ *  @brief 获取id类型的stringValue
+ *
+ *  @param obj  NSString、NSNumber(实现stringValue方法即可)
+ *
+ *  @return
+ */
++(NSString*)stringValueWithObj:(id)obj{
+    NSString *strValue = nil;
+    if ([obj isKindOfClass:[NSString class]]) {
+        strValue = (NSString*)obj;
+    }else if(obj && [obj respondsToSelector:@selector(stringValue)]){
+        strValue = [obj stringValue];
+    }
+    return strValue;
+}
+
+@end
+
+@implementation NSDictionary (Safe)
+
+- (nullable id)al_valueForKeyPath:(NSString *)keyPath{
+    id obj = nil;
+    @try {
+        obj = [self valueForKeyPath:keyPath];
+    }
+    @catch (NSException *exception) {
+        //未找到此KeyPath路径
+        //NSLog(@"exception: %@",exception.name);
+    }
+    return obj;
+}
 
 @end

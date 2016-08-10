@@ -38,4 +38,27 @@
  */
 +(ALKeyPath*)keyPathWithArray:(NSArray*)list;
 
+#pragma mark - Other
+/*!
+ *  @brief 获取id类型的stringValue
+ *
+ *  @param obj  NSString、NSNumber(实现stringValue方法即可)
+ *
+ *  @return
+ */
++(NSString*)stringValueWithObj:(id)obj;
+
+@end
+
+
+@interface NSDictionary (Safe)
+/*!
+ *  @brief safe  valueForKeyPath方法
+ *
+ *  @param keyPath
+ *
+ *  @return
+ */
+- (nullable id)al_valueForKeyPath:(NSString *)keyPath;
+
 @end
