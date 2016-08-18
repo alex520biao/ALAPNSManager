@@ -78,17 +78,31 @@ typedef NS_ENUM(NSInteger, APNSMsgSceneType) {
  */
 @property(nonatomic, strong, readonly) NSDictionary *apnsDict;
 
-#pragma mark - 包装方法
+#pragma mark - apnsDict包装快捷方法
+/*!
+ *  @brief APNS角标
+ *
+ *  @return
+ */
+-(NSNumber*)badge;
+
+/*!
+ *  @brief APNS提示音
+ *
+ *  @return
+ */
+-(NSString*)sound;
+
 /*!
  *  @brief  获取apns的消息标题
  *
- *  @return 苹果APNS消息KeyPath: aps.alert.title
+ *  @return alertTitle的KeyPath为: aps.alert.title
  */
 -(NSString*)alertTitle;
 
 /*!
  *  @brief  获取apns的消息体
- *  @note   苹果APNS消息KeyPath: aps.alert.body
+ *  @note   alertBody的KeyPath为: aps.alert.body
  *
  *  @return
  */
@@ -96,13 +110,18 @@ typedef NS_ENUM(NSInteger, APNSMsgSceneType) {
 
 /*!
  *  @brief  获取apns中自定义payload部分: payload兼容NSDictionary和NSString
- *  @note   payload为自定义key数据
+ *  @note   payload为自定义key数据  payload的KeyPath为: aps.payload
  *
  */
 -(NSDictionary*)payload;
 
 
 #pragma mark - 重写description
+/*!
+ *  @brief ALAPNSMsg
+ *
+ *  @return APNS消息描述
+ */
 -(NSString*)description;
 
 @end

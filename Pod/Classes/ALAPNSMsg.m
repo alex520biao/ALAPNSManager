@@ -92,6 +92,33 @@
     return self;
 }
 
+#pragma mark - apnsDict包装快捷方法
+/*!
+ *  @brief APNS角标
+ *
+ *  @return
+ */
+-(NSNumber*)badge{
+    NSNumber *badge = nil;
+    if (self.apnsDict && [self.apnsDict objectForKey:@"aps"]) {
+        badge = [[self.apnsDict objectForKey:@"aps"] objectForKey:@"badge"];
+    }
+    return badge;
+}
+
+/*!
+ *  @brief APNS提示音
+ *
+ *  @return
+ */
+-(NSString*)sound{
+    NSString *sound = nil;
+    if (self.apnsDict && [self.apnsDict objectForKey:@"aps"]) {
+        sound = [[self.apnsDict objectForKey:@"aps"] objectForKey:@"sound"];
+    }
+    return sound;
+}
+
 -(NSString*)alertTitle{
     NSString *str = nil;
     if (self.apnsDict && [self.apnsDict objectForKey:@"aps"]) {
