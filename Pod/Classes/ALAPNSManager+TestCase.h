@@ -29,4 +29,13 @@
 +(NSMutableDictionary*)launchOptionsWithRemoteJSON:(NSString*)remoteJSON;
 
 
+/*!
+ *  @brief 测试APNS启动应用
+ *
+ *  @param launchOptions
+ *  @param apnsManager
+ */
+-(void)test_APNSMsgWithLaunchOptions:(NSDictionary*)launchOptions;
+
+
 @end

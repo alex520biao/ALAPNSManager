@@ -25,6 +25,20 @@
  */
 @property (nonatomic,strong) ALNode *rootNode;
 
+
+/*!
+ *  @brief 启动APNS消息
+ *  @note  launAPNSMsg不为空说明当前应用是由APNS启动
+ */
+@property (nonatomic,strong,readwrite) ALAPNSMsg *launAPNSMsg;
+
+/*!
+ *  @brief launAPNSMsg不为空时，launAPNSMsgHandled用于表示启动APNS是否已经分发过
+ *  @note  launAPNSMsgHandled NO==启动消息为分发, YES==启动消息已分发，初始为NO
+ */
+@property (nonatomic,assign,readwrite) BOOL launAPNSMsgHandled;
+
+
 @end
 
 @implementation ALAPNSManager
@@ -251,11 +265,20 @@
 -(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
     //封装
     ALAPNSMsg *msg = [ALAPNSMsg apnsMsgWithLaunchOptions:launchOptions];
+    if (msg) {
+        //启动apns消息无需分发处理,仅需记录即可
+        self.launAPNSMsg = msg;
+        self.launAPNSMsgHandled = NO;
+    }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //分发
-        [self handleAPNSMsg:msg];
-    });
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    //如果appDelegate实现的是iOS7之前的旧方法则需要继续分发处理
+    if([appDelegate respondsToSelector:@selector(application:didReceiveRemoteNotification:)]){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //分发
+            [self handleAPNSMsg:msg];
+        });
+    }
 }
 
 /*!
@@ -265,8 +288,20 @@
  *
  */
 -(void)handleAPNSMsgWithDidReceiveRemoteNotification:(NSDictionary*)remoteDict{
-    //封装
-    ALAPNSMsg *msg = [ALAPNSMsg apnsMsgWithDidReceiveRemoteNotification:remoteDict];
+    ALAPNSMsg *msg = nil;
+    //launAPNSMsgHandled为NO
+    if (self.launAPNSMsg && !self.launAPNSMsgHandled) {
+        //继续分发启动APNS消息 launAPNSMsg
+        msg = [[ALAPNSMsg alloc] initWithSceneType:self.launAPNSMsg.sceneType
+                                          apnsDict:remoteDict
+                                  applicationState:self.launAPNSMsg.applicationState];
+        
+        //launAPNSMsgHandled标注此消息已经处理
+        self.launAPNSMsgHandled = YES;
+    }else{
+        //非启动APNS消息
+        msg = [ALAPNSMsg apnsMsgWithDidReceiveRemoteNotification:remoteDict];
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //分发

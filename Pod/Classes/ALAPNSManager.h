@@ -37,6 +37,11 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  */
 @property (nonatomic, weak) id<ALAPNSManagerDelegate> delegate;
 
+/*!
+ *  @brief 启动APNS消息
+ */
+@property (nonatomic,strong,readonly) ALAPNSMsg *launAPNSMsg;
+
 
 #pragma mark - register
 /*!

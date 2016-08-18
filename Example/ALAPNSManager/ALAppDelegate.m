@@ -50,9 +50,12 @@
     self.service = service;
     [self.service serviceDidLoad];
     
-#warning 测试
-    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];    
-    [self performSelector:@selector(handleAPNSMsgWithLaunchOptions:) withObject:launchOptions afterDelay:3];
+#warning 测试APNS启动
+    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
+    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
+    
+//正常处理
+//    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
     
     return YES;
 }
@@ -61,6 +64,14 @@
 -(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
     //通过apns消息启动应用
     [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
+    
+    //启动系统会调用application:didReceiveRemoteNotification:remoteDictfetchCompletionHandler:
+    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    [self application:[UIApplication sharedApplication]
+        didReceiveRemoteNotification:remoteDict
+    fetchCompletionHandler:^(UIBackgroundFetchResult result) {
+        
+    }];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -95,7 +106,13 @@
     [self.apnsManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
+//iOS7开始使用application:didReceiveRemoteNotification:fetchCompletionHandler:方法处理
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    //APNS消息处理
+    [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED{
     //APNS消息处理
     [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
 }
