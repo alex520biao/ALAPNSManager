@@ -260,9 +260,10 @@
  *  @brief  接收并处理启动应用程序时的APNSMsg
  *
  *  @param launchOptions appdelegate从application:didFinishLaunchingWithOptions启动参数
+ *  @param handle 是否需要继续分发处理
  *
  */
--(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
+-(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions needHandle:(BOOL)needHandle{
     //封装
     ALAPNSMsg *msg = [ALAPNSMsg apnsMsgWithLaunchOptions:launchOptions];
     if (msg) {

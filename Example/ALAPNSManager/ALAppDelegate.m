@@ -55,25 +55,11 @@
     [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
     
 //正常处理
-//    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
+//    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions needHandle:NO];
     
     return YES;
 }
 
-
--(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
-    //通过apns消息启动应用
-    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
-    
-    //启动系统会调用application:didReceiveRemoteNotification:remoteDictfetchCompletionHandler:
-    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    [self application:[UIApplication sharedApplication]
-        didReceiveRemoteNotification:remoteDict
-    fetchCompletionHandler:^(UIBackgroundFetchResult result) {
-        
-    }];
-}
-							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
