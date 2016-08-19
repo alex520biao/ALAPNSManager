@@ -60,11 +60,10 @@
     //通过apns消息启动应用
     [self handleAPNSMsgWithLaunchOptions:launchOptions];
     
-    id appDelegate = [UIApplication sharedApplication].delegate;
-    //如果appDelegate未实现了application:didReceiveRemoteNotification:则需要模拟系统从新方法传递apns消息。反之则无需调用
-    if(![appDelegate respondsToSelector:@selector(application:didReceiveRemoteNotification:)]){
+    //如果appDelegate未实现旧方法则需要模拟系统从新方法传递apns消息。反之则无需调用
+    if(![self oldMethodDidReceiveRemoteNotification]){
         //模拟调用application:didReceiveRemoteNotification:fetchCompletionHandler:
-        [self performSelector:@selector(test_handleAPNSMsgWithLaunchOptions:) withObject:launchOptions afterDelay:3];
+        [self performSelector:@selector(test_handleAPNSMsgWithLaunchOptions:) withObject:launchOptions afterDelay:0.3];
     }
 }
 
@@ -75,6 +74,19 @@
     [appDelegate application:[UIApplication sharedApplication] didReceiveRemoteNotification:remoteDict fetchCompletionHandler:^(UIBackgroundFetchResult result) {
         //fetchCompletionHandler无法模拟
     }];
+}
+
+/*!
+ *  @brief 是否实现旧方法
+ *
+ *  @return
+ */
+-(BOOL)oldMethodDidReceiveRemoteNotification{
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    if([appDelegate respondsToSelector:@selector(application:didReceiveRemoteNotification:)]){
+        return YES;
+    }
+    return NO;
 }
 
 

@@ -107,10 +107,10 @@
 }
 
 //iOS7开始使用application:didReceiveRemoteNotification:fetchCompletionHandler:方法处理
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    //APNS消息处理
-    [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
-}
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+//    //APNS消息处理
+//    [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
+//}
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED{
     //APNS消息处理
