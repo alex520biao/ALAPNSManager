@@ -236,6 +236,57 @@
     return  keyPath;
 }
 
+#pragma mark - New
+/*!
+ *  @brief 遍历树获得带有监听项的ALNode的KeyPath数组
+ *
+ *  @return 当前所有监听项
+ */
+-(NSMutableArray<ALKeyPath *>*)iteratorRouteNode{
+    //获取所有存在监听项的节点
+    NSMutableArray<ALKeyPath *> *tempArray = [[NSMutableArray alloc] init];
+    [self iteratorDictionary:self
+                   tempArray:tempArray
+                       array:[NSMutableArray array]];
+    return tempArray;
+}
+
+/*!
+ *  @brief 递归查询存在block的KeyPath
+ *
+ *  @param dict      查询的当前节点
+ *  @param tempArray 保存所有监听项
+ *  @param pathList  临时路径数组
+ */
+-(void)iteratorDictionary:(ALNode*)node tempArray:(NSMutableArray*)tempArray array:(NSMutableArray*)pathList{
+    //非根节点且nodeName不为空，保存nodeName到pathList中
+    if (!node.rootNode && node.nodeName) {
+        [pathList addObject:node.nodeName];
+        
+        //此节点有监听者,则保存此keyPath到tempArray
+        if (node.nodeFilters && node.nodeFilters.count>0) {
+            NSString *keyPath = [ALAPNSTool keyPathWithArray:pathList];
+            [tempArray addObject:keyPath];
+        }
+    }
+    
+    //非叶子节点
+    if (![node leafNode]) {
+        [node.subNodes enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            //obj为node节点
+            if ([obj isKindOfClass:[ALNode class]]) {
+                ALNode *subNode = (ALNode*)obj;
+                if (subNode.nodeName && subNode.nodeName.length>0) {
+                    //递归查询子节点,需要新建pathList数组
+                    NSMutableArray *list = [NSMutableArray arrayWithArray:pathList];
+                    [self iteratorDictionary:subNode tempArray:tempArray array:list];
+                }
+            }
+        }];
+    }
+}
+
+
 @end
 
 

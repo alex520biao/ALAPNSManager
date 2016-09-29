@@ -107,6 +107,15 @@
  */
 -(ALKeyPath*)keyPathOfNode:(ALNode*)node;
 
+#pragma mark - New
+/*!
+ *  @brief 遍历树获得带有监听项的ALNode的KeyPath数组
+ *
+ *  @return 当前所有监听项
+ */
+-(NSMutableArray<ALKeyPath *>*)iteratorRouteNode;
+
+
 @end
 
 /*!

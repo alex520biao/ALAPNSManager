@@ -166,55 +166,6 @@
     return _rootNode;
 }
 
-/*!
- *  @brief 遍历树获得所有监听项
- *
- *  @return 当前所有监听项
- */
--(NSMutableArray*)iteratorRouteNode{
-    //获取所有存在监听项的节点
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    [self iteratorDictionary:self.rootNode
-                   tempArray:tempArray
-                       array:[NSMutableArray array]];
-    return tempArray;
-}
-
-/*!
- *  @brief 递归查询存在block的KeyPath
- *
- *  @param dict      查询的当前节点
- *  @param tempArray 保存所有监听项
- *  @param pathList  临时路径数组
- */
--(void)iteratorDictionary:(ALNode*)node tempArray:(NSMutableArray*)tempArray array:(NSMutableArray*)pathList{
-    //非根节点且nodeName不为空，保存nodeName到pathList中
-    if (!node.rootNode && node.nodeName) {
-        [pathList addObject:node.nodeName];
-        
-        //此节点有监听者,则保存此keyPath到tempArray
-        if (node.nodeFilters && node.nodeFilters.count>0) {
-            NSString *keyPath = [ALAPNSTool keyPathWithArray:pathList];
-            [tempArray addObject:keyPath];
-        }
-    }
-    
-    //非叶子节点
-    if (![node leafNode]) {
-        [node.subNodes enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            //obj为node节点
-            if ([obj isKindOfClass:[ALNode class]]) {
-                ALNode *subNode = (ALNode*)obj;
-                if (subNode.nodeName && subNode.nodeName.length>0) {
-                    //递归查询子节点,需要新建pathList数组
-                    NSMutableArray *list = [NSMutableArray arrayWithArray:pathList];
-                    [self iteratorDictionary:subNode tempArray:tempArray array:list];
-                }
-            }
-        }];
-    }
-}
-
 #pragma mark - ALAPNSManagerSubProtocol - 实现订阅协议
 /*!
  *  @brief 添加一个监听项
@@ -328,7 +279,7 @@
     }
     
     //遍历树获得所有监听项
-    NSMutableArray *tempArray = [self iteratorRouteNode];
+    NSMutableArray<ALKeyPath *> *tempArray = [self.rootNode iteratorRouteNode];
     
     //filters临时存储此消息接收者
     NSMutableArray<ALNodeFilter*> *filters = [[NSMutableArray<ALNodeFilter*> alloc] init];
@@ -337,10 +288,8 @@
     for (int i = 0 ; i<tempArray.count; i++) {
         NSString *keyPath = [tempArray objectAtIndex:i];
         
-        //此消息是否满足监听条件一
-        id obj = [msg.apnsDict al_valueForKeyPath:keyPath];
-        NSString *strValue = [ALAPNSTool stringValueWithObj:obj];
-        
+        //获取keyPath对应的strValue
+        NSString *strValue = [msg.apnsDict al_stringForKeyPath:keyPath];
         if (strValue) {
             ALNode *node = [self.rootNode nodeForKeyPath:keyPath];
             

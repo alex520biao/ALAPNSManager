@@ -68,4 +68,11 @@
     return obj;
 }
 
+- (NSString*)al_stringForKeyPath:(NSString *)keyPath{
+    id obj = [self al_valueForKeyPath:keyPath];
+    NSString *strValue = [ALAPNSTool stringValueWithObj:obj];
+    return strValue;
+}
+
+
 @end

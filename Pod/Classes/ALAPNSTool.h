@@ -61,4 +61,6 @@
  */
 - (nullable id)al_valueForKeyPath:(NSString *)keyPath;
 
+- (NSString*)al_stringForKeyPath:(NSString *)keyPath;
+
 @end
