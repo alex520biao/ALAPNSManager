@@ -10,6 +10,13 @@
 #import "ALAPNSManagerDelegate.h"
 
 /*!
+ *  @brief 字符串类型的KeyPath  如:user.name
+ *  @note  符合Key-Value-Coding(KVC)键值编码
+ */
+typedef NSString ALKeyPath;
+
+
+/*!
  * 枚举转换为NSString
  * C宏中的＃表示将之后的传入参数当作字符串处理
  * enumType为枚举值,返回NSString

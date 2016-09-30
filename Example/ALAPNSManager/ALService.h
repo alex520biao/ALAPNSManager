@@ -12,6 +12,7 @@
 @interface ALService : NSObject
 
 @property (nonatomic, strong) id<ALAPNSManagerPubProtocol,ALAPNSManagerSubProtocol> apnsManager;
+@property(nonatomic,strong)ALLocNotifiManager *locNotifiManager;
 
 /*!
  *  @brief service加载完成(子类需要重写)

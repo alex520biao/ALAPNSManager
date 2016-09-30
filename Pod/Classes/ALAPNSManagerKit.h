@@ -16,4 +16,10 @@
 #import "ALAPNSTool.h"
 #import "ALNode.h"
 
+#import "ALLocNotifiManager.h"
+#import "ALLocNotifiManager+TestCase.h"
+#import "UILocalNotification+ALExtensions.h"
+
+
+
 #endif /* ALAPNSManagerKit_h */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1162B13FADA4FA1615400023 /* libPods-ALAPNSManager_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A821DC0DA13E660F65201E65 /* libPods-ALAPNSManager_Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -20,8 +21,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		A2EA06C2DB2F7F1A459B0D64 /* libPods-ALAPNSManager_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3AF72FC69D42952F49DBA3 /* libPods-ALAPNSManager_Example.a */; };
-		B948504D35D1AE433C88C0B7 /* libPods-ALAPNSManager_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9EEE87CA9B20CF4290AC4C /* libPods-ALAPNSManager_Tests.a */; };
+		BE17EAA4D6CB1D9D1B5A4DD1 /* libPods-ALAPNSManager_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C843FC2D58C4B68D6E5995 /* libPods-ALAPNSManager_Example.a */; };
 		D955B5F21C35317B002E271A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D955B5F11C35317B002E271A /* Launch Screen.storyboard */; };
 		D9FA66451D3E1578004CFAF6 /* ALService.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA66441D3E1578004CFAF6 /* ALService.m */; };
 /* End PBXBuildFile section */
@@ -37,8 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B9EEE87CA9B20CF4290AC4C /* libPods-ALAPNSManager_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ALAPNSManager_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		24568D38A02226FA4AF93828 /* Pods-ALAPNSManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Example/Pods-ALAPNSManager_Example.release.xcconfig"; sourceTree = "<group>"; };
 		5E4A1497C372FBAAFDE918E0 /* ALAPNSManager.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ALAPNSManager.podspec; path = ../ALAPNSManager.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* ALAPNSManager_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALAPNSManager_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,13 +57,15 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		673A949CA79FF95E5DA96C5E /* Pods-ALAPNSManager_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Tests/Pods-ALAPNSManager_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		7A3AF72FC69D42952F49DBA3 /* libPods-ALAPNSManager_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ALAPNSManager_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A27F0D5160B091DBF43C79BC /* Pods-ALAPNSManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Example/Pods-ALAPNSManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		A6F799E6AE07C8EE6BAB05AE /* Pods-ALAPNSManager_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Tests/Pods-ALAPNSManager_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		7BC37E0EAD3B45551EF7E823 /* Pods-ALAPNSManager_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Tests/Pods-ALAPNSManager_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		A821DC0DA13E660F65201E65 /* libPods-ALAPNSManager_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ALAPNSManager_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C292E2DD3C8BC0E4F864124A /* Pods-ALAPNSManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Example/Pods-ALAPNSManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		C3C843FC2D58C4B68D6E5995 /* libPods-ALAPNSManager_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ALAPNSManager_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D955B5F11C35317B002E271A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D9FA66431D3E1578004CFAF6 /* ALService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALService.h; sourceTree = "<group>"; };
 		D9FA66441D3E1578004CFAF6 /* ALService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALService.m; sourceTree = "<group>"; };
+		E0C7397984F5581AF2D6F9FC /* Pods-ALAPNSManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Example/Pods-ALAPNSManager_Example.release.xcconfig"; sourceTree = "<group>"; };
+		F6C50F473ED29FC8C4935605 /* Pods-ALAPNSManager_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALAPNSManager_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ALAPNSManager_Tests/Pods-ALAPNSManager_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FBFF5B1E6C6C26D55AC0BDA0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		FE671753AD24714DEAC59ABA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +78,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				A2EA06C2DB2F7F1A459B0D64 /* libPods-ALAPNSManager_Example.a in Frameworks */,
+				BE17EAA4D6CB1D9D1B5A4DD1 /* libPods-ALAPNSManager_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,24 +89,13 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				B948504D35D1AE433C88C0B7 /* libPods-ALAPNSManager_Tests.a in Frameworks */,
+				1162B13FADA4FA1615400023 /* libPods-ALAPNSManager_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2C23DC48395128656BB7F243 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A27F0D5160B091DBF43C79BC /* Pods-ALAPNSManager_Example.debug.xcconfig */,
-				24568D38A02226FA4AF93828 /* Pods-ALAPNSManager_Example.release.xcconfig */,
-				673A949CA79FF95E5DA96C5E /* Pods-ALAPNSManager_Tests.debug.xcconfig */,
-				A6F799E6AE07C8EE6BAB05AE /* Pods-ALAPNSManager_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -115,7 +104,7 @@
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
-				2C23DC48395128656BB7F243 /* Pods */,
+				70CD28FE7D57CC5B62EA7A0A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,8 +124,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				7A3AF72FC69D42952F49DBA3 /* libPods-ALAPNSManager_Example.a */,
-				1B9EEE87CA9B20CF4290AC4C /* libPods-ALAPNSManager_Tests.a */,
+				C3C843FC2D58C4B68D6E5995 /* libPods-ALAPNSManager_Example.a */,
+				A821DC0DA13E660F65201E65 /* libPods-ALAPNSManager_Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -198,6 +187,17 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		70CD28FE7D57CC5B62EA7A0A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C292E2DD3C8BC0E4F864124A /* Pods-ALAPNSManager_Example.debug.xcconfig */,
+				E0C7397984F5581AF2D6F9FC /* Pods-ALAPNSManager_Example.release.xcconfig */,
+				F6C50F473ED29FC8C4935605 /* Pods-ALAPNSManager_Tests.debug.xcconfig */,
+				7BC37E0EAD3B45551EF7E823 /* Pods-ALAPNSManager_Tests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -205,12 +205,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "ALAPNSManager_Example" */;
 			buildPhases = (
-				98E9F68C6C24A5592D45FCC4 /* Check Pods Manifest.lock */,
+				5C11FAA56F9663EFBA5C918A /* [CP] Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				D10A25DC431F358A62A50ECC /* Embed Pods Frameworks */,
-				E7D0963EE2308D0B6C1C5416 /* Copy Pods Resources */,
+				713541AED0A3DDA47B9D6130 /* [CP] Embed Pods Frameworks */,
+				C433E08C95B9818D6EB35825 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -225,12 +225,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "ALAPNSManager_Tests" */;
 			buildPhases = (
-				596DB8F26A693E02BE9E0C18 /* Check Pods Manifest.lock */,
+				B2D4C68692396FF0AAFEC4EE /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				719A138F1CE0CC59A040BC16 /* Embed Pods Frameworks */,
-				DFBD13BEA78A5DE3C9B15A13 /* Copy Pods Resources */,
+				9ED9FE27721E6ABEE36F6ECB /* [CP] Embed Pods Frameworks */,
+				B8DB5DE1C19F9EBE322AC52C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -298,14 +298,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		596DB8F26A693E02BE9E0C18 /* Check Pods Manifest.lock */ = {
+		5C11FAA56F9663EFBA5C918A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,44 +313,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		719A138F1CE0CC59A040BC16 /* Embed Pods Frameworks */ = {
+		713541AED0A3DDA47B9D6130 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ALAPNSManager_Tests/Pods-ALAPNSManager_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		98E9F68C6C24A5592D45FCC4 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D10A25DC431F358A62A50ECC /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,14 +328,44 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ALAPNSManager_Example/Pods-ALAPNSManager_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DFBD13BEA78A5DE3C9B15A13 /* Copy Pods Resources */ = {
+		9ED9FE27721E6ABEE36F6ECB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ALAPNSManager_Tests/Pods-ALAPNSManager_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2D4C68692396FF0AAFEC4EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B8DB5DE1C19F9EBE322AC52C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,14 +373,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ALAPNSManager_Tests/Pods-ALAPNSManager_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E7D0963EE2308D0B6C1C5416 /* Copy Pods Resources */ = {
+		C433E08C95B9818D6EB35825 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,7 +514,7 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A27F0D5160B091DBF43C79BC /* Pods-ALAPNSManager_Example.debug.xcconfig */;
+			baseConfigurationReference = C292E2DD3C8BC0E4F864124A /* Pods-ALAPNSManager_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -531,7 +531,7 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24568D38A02226FA4AF93828 /* Pods-ALAPNSManager_Example.release.xcconfig */;
+			baseConfigurationReference = E0C7397984F5581AF2D6F9FC /* Pods-ALAPNSManager_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -548,7 +548,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 673A949CA79FF95E5DA96C5E /* Pods-ALAPNSManager_Tests.debug.xcconfig */;
+			baseConfigurationReference = F6C50F473ED29FC8C4935605 /* Pods-ALAPNSManager_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -571,7 +571,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6F799E6AE07C8EE6BAB05AE /* Pods-ALAPNSManager_Tests.release.xcconfig */;
+			baseConfigurationReference = 7BC37E0EAD3B45551EF7E823 /* Pods-ALAPNSManager_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

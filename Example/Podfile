@@ -1,5 +1,6 @@
 #source 'https://xxxx/cocoapods-specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, "7.0"
 
 # We don't use Swift internally. Disable this option.
 #use_frameworks!
@@ -17,7 +18,7 @@ end
 
 # Add global dependencies here.
 
-target 'ALAPNSManager_Example', :exclusive => true do
+target 'ALAPNSManager_Example' do
   # If ALAPNSManager depends on any private pod, remember to use `local_pod`
   # to refer it explicitly.
   # CocoaPods cannot distinguish public and private pod from podspec right now,
@@ -31,7 +32,7 @@ target 'ALAPNSManager_Example', :exclusive => true do
   pod "ALAPNSManager", :path => "../"
 end
 
-target 'ALAPNSManager_Tests', :exclusive => true do
+target 'ALAPNSManager_Tests' do
   # Add Tests specific dependencies here...
 
   pod "ALAPNSManager", :path => "../"

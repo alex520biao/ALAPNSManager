@@ -12,8 +12,9 @@
 
 #import <ALAPNSManager/ALAPNSManagerKit.h>
 
-@interface ALAppDelegate ()<ALAPNSManagerDelegate>
+@interface ALAppDelegate ()<ALAPNSManagerDelegate,ALLocNotifiManagerDelegate>
 @property(nonatomic,strong)ALAPNSManager *apnsManager;
+@property(nonatomic,strong)ALLocNotifiManager *locNotifiManager;
 @property(nonatomic,strong)ALService *service;
 
 @end
@@ -23,8 +24,17 @@
 -(ALAPNSManager*)apnsManager{
     if (!_apnsManager) {
         _apnsManager = [[ALAPNSManager alloc] init];
+        _apnsManager.delegate = self;
     }
     return _apnsManager;
+}
+
+-(ALLocNotifiManager*)locNotifiManager{
+    if (!_locNotifiManager) {
+        _locNotifiManager = [[ALLocNotifiManager alloc] init];
+        _locNotifiManager.delegate = self;
+    }
+    return _locNotifiManager;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -43,22 +53,32 @@
      *  @brief 注册iOS系统 APNS消息
      */
     [self.apnsManager registerForRemoteNotification];
-    self.apnsManager.delegate = self;
     
     ALService *service = [[ALService alloc] init];
     service.apnsManager = self.apnsManager;
+    service.locNotifiManager = self.locNotifiManager;
     self.service = service;
     [self.service serviceDidLoad];
     
-#warning 测试APNS启动
-    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
-    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
+
     
-//正常处理
+#warning 测试APNS启动
+//    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
+//    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
+//    
+//    //正常处理
 //    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions needHandle:NO];
+    
+    //接收并处理UILocalNotification
+    [self.locNotifiManager handleLocNotifiWithLaunchOptions:launchOptions];
+    
+    
+#warning 测试UILocalNotification启动应用
+    [self.locNotifiManager test_LocalNotification:10];
     
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -85,6 +105,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+/*!
+ *  @brief 本地通知
+ *
+ *  @param application
+ *  @param notification
+ */
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
+    //接收并处理UILocalNotification消息
+    [self.locNotifiManager handleLocNotifiWithDidReceiveRemoteNotification:notification
+                                                         applicationStatus:[UIApplication sharedApplication].applicationState];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
@@ -127,6 +159,32 @@
     
 
 }
+
+#pragma mark - ALLocNotifiManagerDelegate
+/*!
+ *  @brief 是否向将此APNS消息进入发布流程
+ *
+ *  @param manager
+ *  @param msg
+ */
+- (BOOL)locNotifiManager:(ALLocNotifiManager *)manager shouldPublishLocNotifi:(UILocalNotification *)msg{
+
+    return YES;
+}
+
+/*!
+ *  @brief UILocalNotification已经分发处理完成
+ *
+ *  @param manager
+ *  @param msg
+ *  @param filters filters为0则消息没有接收者,大于零则说明有多个接收者
+ */
+- (void)locNotifiManager:(ALLocNotifiManager *)manager didPublishLocNotifi:(UILocalNotification *)msg filter:(NSArray<ALNodeFilter *>*)filters{
+
+
+}
+
+
 
 
 @end
