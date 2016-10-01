@@ -11,6 +11,8 @@
 @implementation ALLocNotifiManager (TestCase)
 
 #pragma mark - UILocalNotification
+
+#if DEBUG
 -(void)test_LocalNotification:(NSTimeInterval)secs{
     UILocalNotification *notification=[[UILocalNotification alloc]init];
     //    NSDateFormatter *formatter=[[NSDateFormatter alloc] init];
@@ -39,6 +41,7 @@
     
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
+#endif
 
 
 @end
