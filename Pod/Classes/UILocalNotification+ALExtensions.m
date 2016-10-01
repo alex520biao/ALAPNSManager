@@ -78,5 +78,40 @@
     return triggerMode;
 }
 
+/*!
+ *  @brief 格式化输出ALExtensions信息
+ *
+ *  @return
+ */
+-(NSString*)logExtenDescription{
+    NSString *logExtenDescription = nil;
+    
+    NSString *launch = @"NO";
+    if(self.launch){
+        launch = @"YES";
+    }
+
+    NSString *trigger = @"未知";
+    if([self triggerMode]==ALLocNotifiTriggerMode_UserClick){
+        trigger = @"用户点击触发";
+    }else if([self triggerMode]==ALLocNotifiTriggerMode_Timer){
+        trigger = @"timer触发";
+    }
+    
+    NSString *applicationStatus = nil;
+    if(self.al_applicationStatus == UIApplicationStateActive){
+        applicationStatus = @"UIApplicationStateActive";
+    }
+    else if(self.al_applicationStatus == UIApplicationStateInactive){
+        applicationStatus = @"UIApplicationStateInactive";
+    }
+    else if(self.al_applicationStatus == UIApplicationStateBackground){
+        applicationStatus = @"UIApplicationStateBackground";
+    }
+    
+    logExtenDescription = [NSString stringWithFormat:@"launch:%@,trigger:%@,applicationStatus:%@",launch,trigger,applicationStatus];
+    return logExtenDescription;
+}
+
 
 @end

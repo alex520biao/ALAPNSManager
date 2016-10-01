@@ -47,6 +47,14 @@ typedef NS_ENUM(NSInteger, ALLocNotifiTriggerMode) {
  */
 -(ALLocNotifiTriggerMode)triggerMode;
 
+/*!
+ *  @brief 格式化输出ALExtensions信息
+ *  @note  方便test、log等操作
+ *
+ *  @return
+ */
+-(NSString*)logExtenDescription;
+
 
 
 

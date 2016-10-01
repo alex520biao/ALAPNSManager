@@ -85,52 +85,27 @@
                                       observer:self
                                        handler:^(UILocalNotification *localNotification) {
                                            NSLog(@"LocNotifi 发布成功");
-                                           NSString *trigger = @"未知";
-                                           if([localNotification triggerMode]==ALLocNotifiTriggerMode_UserClick){
-                                               trigger = @"用户点击触发";
-                                           }else if([localNotification triggerMode]==ALLocNotifiTriggerMode_Timer){
-                                               trigger = @"timer触发";
-                                           }
+                                           
+                                           UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:[localNotification logExtenDescription]
+                                                                                             message:localNotification.alertBody
+                                                                                            delegate:nil
+                                                                                   cancelButtonTitle:@"OK"
+                                                                                   otherButtonTitles:nil];
+                                           [alertView show];
 
                                            //UILocalNotification启动应用
                                            if(localNotification.launch){
-                                               NSString *title =[NSString stringWithFormat:@"UILocalNotification启动 trigger:%@",trigger];
-                                               UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:title
-                                                                                                 message:localNotification.alertBody
-                                                                                                delegate:nil
-                                                                                       cancelButtonTitle:@"OK"
-                                                                                       otherButtonTitles:nil];
-                                               [alertView show];
+                                               //......
                                            }else{
                                                //其他场景接收到UILocalNotification
                                                if(localNotification.al_applicationStatus == UIApplicationStateActive){
-                                                   NSString *title =[NSString stringWithFormat:@"UIApplicationStateActive trigger:%@",trigger];
-                                                   UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:title
-                                                                                                     message:localNotification.alertBody
-                                                                                                    delegate:nil
-                                                                                           cancelButtonTitle:@"OK"
-                                                                                           otherButtonTitles:nil];
-                                                   [alertView show];
+                                                   //......
                                                }
                                                else if(localNotification.al_applicationStatus == UIApplicationStateInactive){
-                                                   NSString *title =[NSString stringWithFormat:@"UIApplicationStateInactive trigger:%@",trigger];
-                                                   UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:title
-                                                                                                     message:localNotification.alertBody
-                                                                                                    delegate:nil
-                                                                                           cancelButtonTitle:@"OK"
-                                                                                           otherButtonTitles:nil];
-                                                   [alertView show];
-                                                   
+                                                   //......
                                                }
                                                else if(localNotification.al_applicationStatus == UIApplicationStateBackground){
-                                                   NSString *title =[NSString stringWithFormat:@"UIApplicationStateBackground trigger:%@",trigger];
-                                                   UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:title
-                                                                                                     message:localNotification.alertBody
-                                                                                                    delegate:nil
-                                                                                           cancelButtonTitle:@"OK"
-                                                                                           otherButtonTitles:nil];
-                                                   [alertView show];
-                                                   
+                                                   //......
                                                }
                                            }
                                        }];
