@@ -10,7 +10,7 @@
 
 @interface ALAPNSManager (TestCase)
 
-#pragma mark - TEST
+#if DEBUG
 /*!
  *  @brief 模拟APNS消息启动app所需launchOptions
  *  @note  可在application:didFinishLaunchingWithOptions中给launchOptions赋值用于模拟APNS消息启动app
@@ -37,6 +37,7 @@
  */
 -(void)test_APNSMsgWithLaunchOptions:(NSDictionary*)launchOptions;
 
+#endif
 
 
 @end
