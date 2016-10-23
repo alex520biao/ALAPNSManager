@@ -40,3 +40,11 @@ ALAPNSManager is available under the MIT license. See the LICENSE file for more 
 2. 监听项需要随observer释放而自释放
 3. 封装KeyPath监听管理器，包含rootNode及KeyPath管理接口
 4. KeyPath监听管理器所有操作加入队列。rootNode的遍历及其他操作如果放在主线程有可能影响性能。
+
+
+####修改之后发布新版本
+	
+	pod spec lint ALAPNSManager.podspec --allow-warnings --verbose
+	pod trunk push ALAPNSManager.podspec --verbose
+	pod search ALAPNSManager
+	
