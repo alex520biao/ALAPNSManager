@@ -28,9 +28,9 @@ Pod::Spec.new do |s|
   s.source_files = 'Pod/Classes/**/*'
 
   # Uncomment following lines if ALAPNSManager has some resource files.
-  s.resource_bundles = {
-    'ALAPNSManager' => ['Pod/Assets/*.png']
-  }
+  #s.resource_bundles = {
+  #  'ALAPNSManager' => ['Pod/Assets/*.png']
+  #}
 
   # Uncomment following lines if ALAPNSManager needs to link with some static libraries.
   # s.vendored_libraries = [
