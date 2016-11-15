@@ -2,7 +2,7 @@
 //  ALLocNotifiManager+TestCase.m
 //  Pods
 //
-//  Created by liubiao on 16/9/30.
+//  Created by alex520biao on 16/9/30.
 //
 //
 
