@@ -166,6 +166,45 @@
     return _rootNode;
 }
 
+#pragma mark - other
+/*!
+ *  @brief 是否实现旧方法
+ *
+ *  @return
+ */
+-(BOOL)oldMethodDidReceiveRemoteNotification{
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    if([appDelegate respondsToSelector:@selector(application:didReceiveRemoteNotification:)]){
+        return YES;
+    }
+    return NO;
+}
+
+/*!
+ *  @brief  接收并处理启动应用程序时的APNSMsg
+ *
+ *  @param launchOptions appdelegate从application:didFinishLaunchingWithOptions启动参数
+ *  @param handle 是否需要继续分发处理
+ *
+ */
+-(void)receivedAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions needHandle:(BOOL)needHandle{
+    //封装
+    ALAPNSMsg *msg = [ALAPNSMsg apnsMsgWithLaunchOptions:launchOptions];
+    if (msg) {
+        //启动apns消息无需分发处理,仅需记录即可
+        self.launAPNSMsg = msg;
+        self.launAPNSMsgHandled = NO;
+    }
+    
+    //needHandle为YES则需要处理
+    if(needHandle){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //分发
+            [self handleAPNSMsg:msg];
+        });
+    }
+}
+
 #pragma mark - ALAPNSManagerSubProtocol - 实现订阅协议
 /*!
  *  @brief 添加一个监听项
@@ -211,30 +250,24 @@
  *  @brief  接收并处理启动应用程序时的APNSMsg
  *
  *  @param launchOptions appdelegate从application:didFinishLaunchingWithOptions启动参数
- *  @param handle 是否需要继续分发处理
  *
  */
--(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions needHandle:(BOOL)needHandle{
-    //封装
-    ALAPNSMsg *msg = [ALAPNSMsg apnsMsgWithLaunchOptions:launchOptions];
-    if (msg) {
-        //启动apns消息无需分发处理,仅需记录即可
-        self.launAPNSMsg = msg;
-        self.launAPNSMsgHandled = NO;
-    }
-    
-    id appDelegate = [UIApplication sharedApplication].delegate;
-    //如果appDelegate实现的是iOS7之前的旧方法则需要继续分发处理
-    if([appDelegate respondsToSelector:@selector(application:didReceiveRemoteNotification:)]){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //分发
-            [self handleAPNSMsg:msg];
-        });
+-(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
+    //如果appDelegate未实现旧方法则需要模拟系统从新方法传递apns消息。反之则无需调用
+    if(![self oldMethodDidReceiveRemoteNotification]){
+        //通过apns消息启动应用
+        [self receivedAPNSMsgWithLaunchOptions:launchOptions needHandle:NO];
+        
+        //模拟调用application:didReceiveRemoteNotification:fetchCompletionHandler:
+        [self performSelector:@selector(test_handleAPNSMsgWithLaunchOptions:) withObject:launchOptions afterDelay:0.3];
+    }else{
+        //通过apns消息启动应用
+        [self receivedAPNSMsgWithLaunchOptions:launchOptions needHandle:YES];
     }
 }
 
 /*!
- *  @brief  接收并处理正常情况下接收的APNSMsg消息
+ *  @brief  接收并处理application:didReceiveRemoteNotification的APNSMsg消息
  *
  *  @param  remoteDict appdelegate从application:didReceiveRemoteNotification入口参数
  *

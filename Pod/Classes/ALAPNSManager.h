@@ -79,6 +79,23 @@ typedef NS_OPTIONS(NSUInteger, RemoteNotificationType) {
  */
 - (void)deleteDeviceToken;
 
+#pragma mark - other
+/*!
+ *  @brief 是否实现旧方法
+ *
+ *  @return
+ */
+-(BOOL)oldMethodDidReceiveRemoteNotification;
+
+/*!
+ *  @brief  接收并处理启动应用程序时的APNSMsg
+ *
+ *  @param launchOptions appdelegate从application:didFinishLaunchingWithOptions启动参数
+ *  @param handle 是否需要继续分发处理
+ *
+ */
+-(void)receivedAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions needHandle:(BOOL)needHandle;
+
 #pragma mark - ALAPNSManagerPubProtocol  - 实现发布协议
 
 #pragma mark - ALAPNSManagerSubProtocol  - 实现订阅协议

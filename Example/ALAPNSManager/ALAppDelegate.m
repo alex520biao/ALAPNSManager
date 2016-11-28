@@ -63,11 +63,11 @@
 
     
 #warning 测试APNS启动
-//    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
-//    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
-//    
-//    //正常处理
-//    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions needHandle:NO];
+    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
+    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
+    
+    //正常处理
+//    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
     
     //接收并处理UILocalNotification
     [self.locNotifiManager handleLocNotifiWithLaunchOptions:launchOptions];

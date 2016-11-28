@@ -38,4 +38,30 @@ ALAPNSManager is available under the MIT license. See the LICENSE file for more 
 	pod spec lint ALAPNSManager.podspec --allow-warnings --verbose
 	pod trunk push ALAPNSManager.podspec --verbose
 	pod search ALAPNSManager
-	
+
+####APNS使用方法
+
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+        //接收APNS消息
+        [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
+        return YES;
+    }
+
+    - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED{
+        //接收APNS消息
+        [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
+    }
+
+####测试APNS消息
+
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+        //接收APNS消息(自定义launchOptions来实现APNS测试)
+        launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
+        [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
+        return YES;
+    }
+
+    - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED{
+        //接收APNS消息
+        [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
+    }
