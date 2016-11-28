@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ALAPNSManager"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "APNSManager is a apns processing tool"
   s.description      = <<-DESC.gsub(/^\s*\|?/,'')
                        a apns processing tool APNSManager。APNSManager is a apns processing tool。
