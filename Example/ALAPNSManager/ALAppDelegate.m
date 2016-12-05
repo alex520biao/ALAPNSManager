@@ -82,6 +82,14 @@
 #warning 测试UILocalNotification启动应用
     [self.locNotifiManager test_LocalNotification:10];
     
+//    NSString *urlStr=[NSString stringWithFormat:@"www.hao123.com"];
+//    NSURL *url=[NSURL URLWithString:urlStr];
+//    NSURLRequest *request=[NSURLRequest requestWithURL:url];
+//    NSOperationQueue *queue=[NSOperationQueue mainQueue];
+//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSLog(@"--block回调数据--%@---%d");
+//    }];
+    
     return YES;
 }
 

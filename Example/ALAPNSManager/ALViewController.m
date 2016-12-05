@@ -45,26 +45,35 @@
                  filterValue:@"111"
                     observer:self
                      handler:^id(ALDictEvent *msg,ALNodeFilter *filter) {
-                         //此Block必须以同步方式执行，获取的数据在block末尾作为返回值返回
+                         //此Block必须以同步阻塞方式执行，获取的数据在block末尾作为返回值返回
                          
                          //执行进度30%
                          sleep(2);
                          //根据数据的处理进度回调progress
                          if (msg.progress) {
-                             msg.progress(msg,0.3,filter);
+                             //当前线程为同步线程需要切换到主线程回调
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 msg.progress(msg,0.3,filter);
+                             });
                          }
 
                          //执行进度30%
                          NSURL *urlString = [NSURL URLWithString:@"http://www.jianshu.com/p/73e00cb16dd1"];
                          NSData *data = [NSData dataWithContentsOfURL:urlString];
                          if (msg.progress) {
-                             msg.progress(msg,0.6,filter);
+                             //当前线程为同步线程需要切换到主线程回调
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 msg.progress(msg,0.6,filter);
+                             });
                          }
                          
                          //执行进度30%
                          sleep(2);
                          if (msg.progress) {
-                             msg.progress(msg,1,filter);
+                             //当前线程为同步线程需要切换到主线程回调
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 msg.progress(msg,1,filter);
+                             });
                          }
                          
                          return data;
