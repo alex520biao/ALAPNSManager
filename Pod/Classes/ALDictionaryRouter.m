@@ -11,6 +11,14 @@
 
 @implementation ALDictionaryRouter
 
++(ALDictionaryRouter*)routerWithShouldPublish:(ALDictionaryRouterShouldPublishBlock)shouldPublish
+                                 didPublished:(ALDictionaryRouterDidPublishedBlock)didPublished{
+    ALDictionaryRouter *router = [[ALDictionaryRouter alloc] init];
+    router.shouldPublish = shouldPublish;
+    router.didPublished = didPublished;
+    return router;
+}
+
 #pragma mark - 监听项数据管理
 -(ALNode*)rootNode{
     if (!_rootNode) {
@@ -69,20 +77,19 @@
              withUserInfo:(NSDictionary *)userInfo
                  progress:(ALDictProgressBlcok)progress
                  response:(ALDictResponseBlcok)response{
-//    //should默认为YES
-//    BOOL should = YES;
-//    if ([self.delegate respondsToSelector:@selector(locNotifiManager:shouldPublishLocNotifi:)]) {
-//        should = [self.delegate locNotifiManager:self shouldPublishLocNotifi:msg];
-//    }
-//    
-//    //should为NO则直接丢弃此消息
-//    if(!should){
-//        return;
-//    }
-    
     ALDictEvent *event = [[ALDictEvent alloc] initWithDict:dict
                                                   progress:progress
                                                   response:response];
+    //should默认为YES
+    BOOL should = YES;
+    if (self.shouldPublish) {
+        should = self.shouldPublish(self,event);
+    }
+    
+    //should为NO则直接丢弃此消息
+    if(!should){
+        return;
+    }
     
     //遍历树获得所有监听项
     NSMutableArray<ALKeyPath *> *tempArray = [self.rootNode iteratorRouteNode];
@@ -90,7 +97,12 @@
     //filters临时存储此消息接收者
     NSMutableArray<ALNodeFilter*> *filters = [[NSMutableArray<ALNodeFilter*> alloc] init];
     
-    //tempArray为所有监听项
+    
+    //创建分组异步同步任务
+    __block typeof(self)weakSelf = self;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t group = dispatch_group_create();
+    //新线程处理数据,tempArray为所有监听项
     for (int i = 0 ; i<tempArray.count; i++) {
         NSString *keyPath = [tempArray objectAtIndex:i];
         
@@ -104,27 +116,34 @@
                 //observer不能为nil
                 if (filter.observer && filter.filterValue && [strValue isEqualToString:filter.filterValue]) {
                     ALDictEventHandler block = (ALDictEventHandler)filter.block;
-                    id result = nil;
-                    if (block) {
-                        result = block(event);
-                        [filters addObject:filter];
-                    }
-                    
-                    //调用者结果回调
-                    if(event.response){
-                        event.response(event,result,nil);
-                    }
+
+                    //使用dispatch_group管理多个异步任务
+                    dispatch_group_async(group, queue, ^{                        
+                        id result = nil;
+                        //执行处理操作
+                        if (block) {
+                            result = block(event,filter);
+                            [filters addObject:filter];
+                        }
+                        
+                        //调用者结果回调
+                        if(event.response){
+                            event.response(event,filter,result,filter);
+                        }
+                    });
+
                 }
             }
         }
     }
     
-//    //发布完成
-//    if ([self.delegate respondsToSelector:@selector(locNotifiManager:didPublishLocNotifi:filter:)]) {
-//        [self.delegate locNotifiManager:self
-//                    didPublishLocNotifi:msg
-//                                 filter:filters];
-//    }
+    //分组中的任务都完成后会自动触发下面的方法
+    dispatch_group_notify(group, queue, ^{
+        //所有任务执行完毕
+        if (self.didPublished) {
+            self.didPublished(self,event,filters);
+        }
+    });
 }
 
 

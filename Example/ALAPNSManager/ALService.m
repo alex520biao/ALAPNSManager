@@ -7,6 +7,8 @@
 //
 
 #import "ALService.h"
+#import "ALDictionaryRouter.h"
+#import "ALAppDelegate.h"
 
 @implementation ALService
 
@@ -117,6 +119,36 @@
                                        handler:^(UILocalNotification *localNotification) {
                                            NSLog(@"LocNotifi 发布成功");
                                        }];
+
+    ALDictionaryRouter *router = ((ALAppDelegate*)[UIApplication sharedApplication].delegate).dictEventRouter;
+    [router subscribePattern:@"payload.ty"
+                 filterValue:@"111"
+                    observer:self
+                     handler:^id(ALDictEvent *msg,ALNodeFilter *filter) {
+                         //此Block必须以同步方式执行，获取的数据在block末尾作为返回值返回
+                         
+                         //执行进度30%
+                         sleep(2);
+                         //根据数据的处理进度回调progress
+                         if (msg.progress) {
+                             msg.progress(msg,0.3,filter);
+                         }
+                         
+                         //执行进度30%
+                         NSURL *urlString = [NSURL URLWithString:@"http://www.jianshu.com/p/73e00cb16dd1"];
+                         NSData *data = [NSData dataWithContentsOfURL:urlString];
+                         if (msg.progress) {
+                             msg.progress(msg,0.6,filter);
+                         }
+                         
+                         //执行进度30%
+                         sleep(2);
+                         if (msg.progress) {
+                             msg.progress(msg,1,filter);
+                         }
+                         
+                         return data;
+                     }];
 
 }
 

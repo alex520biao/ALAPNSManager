@@ -9,7 +9,6 @@
 #import "ALAppDelegate.h"
 #import "ALViewController.h"
 #import "ALService.h"
-
 #import <ALAPNSManager/ALAPNSManagerKit.h>
 
 @interface ALAppDelegate ()<ALAPNSManagerDelegate,ALLocNotifiManagerDelegate>
@@ -48,6 +47,13 @@
     self.naviController = nav;
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
+    
+    //添加一个按钮用来测试本地通知
+    self.dictEventRouter = [ALDictionaryRouter routerWithShouldPublish:^BOOL(ALDictionaryRouter *router, ALDictEvent *msg) {
+        return YES;
+    } didPublished:^(ALDictionaryRouter *router, ALDictEvent *msg, NSArray<ALNodeFilter *> *filters) {
+        NSLog(@"DidPublished");
+    }];
     
     /*!
      *  @brief 注册iOS系统 APNS消息

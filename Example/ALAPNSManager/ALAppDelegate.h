@@ -7,14 +7,18 @@
 //
 
 @import UIKit;
+#import "ALDictionaryRouter.h"
 
 @interface ALAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+
 /*!
  *  @brief 底层导航控制器
  */
 @property (strong, nonatomic) UINavigationController *naviController;
+
+@property(nonatomic,strong)ALDictionaryRouter *dictEventRouter;
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ALDictEvent;
+@class ALNodeFilter;
 
 /*!
  *  @brief 任务进度: ALProgress类型为CGFloat,值域为[0~1],超出值域赋值无效
@@ -23,7 +24,7 @@ typedef CGFloat ALProgress;
  *  @param progress 完成进度百分比
  *  @param moreInfo 当前进度的附加信息
  */
-typedef void (^ALDictProgressBlcok)(ALDictEvent *event,ALProgress progress,NSDictionary *moreInfo);
+typedef void (^ALDictProgressBlcok)(ALDictEvent *event,ALProgress progress,ALNodeFilter *filter);
 
 /*!
  *  @brief InsideURL处理完成(成功或者异常终止)
@@ -32,7 +33,7 @@ typedef void (^ALDictProgressBlcok)(ALDictEvent *event,ALProgress progress,NSDic
  *  @param result 结果数据对象
  *  @param error  错误对象
  */
-typedef void (^ALDictResponseBlcok)(ALDictEvent *event,id result, NSError *error);
+typedef void (^ALDictResponseBlcok)(ALDictEvent *event,ALNodeFilter *filter,id result, NSError *error);
 
 
 @interface ALDictEvent : NSObject
