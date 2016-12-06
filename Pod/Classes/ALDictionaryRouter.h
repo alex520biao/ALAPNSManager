@@ -48,6 +48,14 @@ typedef void (^ALDictionaryRouterDidPublishedBlock)(ALDictionaryRouter *router,A
 @interface ALDictionaryRouter : NSObject
 
 
+/**
+ 构造ALDictionaryRouter
+
+ @param shouldPublish 拦截需要分发的消息block,此拦截器可用于数据过滤及日志统计
+ @param didPublished  接收到此消息的对象集合block,可用于日志统计
+
+ @return
+ */
 +(ALDictionaryRouter*)routerWithShouldPublish:(ALDictionaryRouterShouldPublishBlock)shouldPublish
                                  didPublished:(ALDictionaryRouterDidPublishedBlock)didPublished;
 
