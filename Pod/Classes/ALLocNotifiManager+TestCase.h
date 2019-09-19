@@ -17,7 +17,7 @@
 
 #if DEBUG
 
--(void)test_LocalNotification:(NSTimeInterval)secs;
+-(void)test_LocalNotification:(NSTimeInterval)secs title:(NSString*)title;
 
 #endif
 

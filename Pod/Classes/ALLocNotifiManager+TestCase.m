@@ -13,16 +13,16 @@
 #pragma mark - UILocalNotification
 
 #if DEBUG
--(void)test_LocalNotification:(NSTimeInterval)secs{
+-(void)test_LocalNotification:(NSTimeInterval)secs title:(NSString*)title{
     UILocalNotification *notification=[[UILocalNotification alloc]init];
     //    NSDateFormatter *formatter=[[NSDateFormatter alloc] init];
     //    [formatter setDateFormat:@"HH:mm:ss"];//还有其他格式,如mm:ss,ss,hh:mm:ss，yyyy-MM-dd HH:mm:ss,HH大写表示24小时计算，小写表示12小时计算，
     //    NSDate *now=[formatter dateFromString:@"16:59:00"];//设置每天的十二点通知
     
-    notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:20.0];
+    notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:secs];
     notification.timeZone=[NSTimeZone defaultTimeZone];
     //设置默认时区，另外也可以写一个时区如:[dateformatter setDateFormat:@"yyyy-MM-dd HH:mm:ss +0800"];//表示东八区
-    notification.repeatInterval=2;//通知重复次数
+    notification.repeatInterval=0;//通知重复次数
     //如果repeatInterval为零，则表示不重复
     notification.repeatInterval=NSDayCalendarUnit;//设置重复的时间间隔，NSSecondCalendarUnit每秒重复,NSHourCalendarUnit每小时重复,NSDayCalendarUnit每天重复,NSMonthCalendarUnit每月重复
     
@@ -31,6 +31,7 @@
     //    notification.repeatCalendar=calendar;//当前日历，使用前最好设置时区等信息以便能够自动同步时间
     
     //设置通知属性
+    notification.alertTitle = title;
     notification.alertBody=@"这是通知主体啊";//通知主体
     notification.applicationIconBadgeNumber=1;//应用程序图标右上角显示的消息数
     notification.alertAction=@"打开应用";//待机界面的滑动动作提示

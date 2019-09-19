@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, ALLocNotifiTriggerMode) {
  *
  *  @return
  */
--(NSString*)logExtenDescription;
+-(NSString*)al_extenDescription;
 
 
 

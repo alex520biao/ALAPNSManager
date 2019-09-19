@@ -62,6 +62,12 @@
                             observer:self
                              handler:^void(ALAPNSMsg *msg) {
                                  NSLog(@"");
+                                 UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"ALService接收到消息中心分发的APNS消息"
+                                                                                   message:[msg description]
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"OK"
+                                                                         otherButtonTitles:nil];
+                                 [alertView show];
                              }];
     
     
@@ -88,8 +94,8 @@
                                        handler:^(UILocalNotification *localNotification) {
                                            NSLog(@"LocNotifi 发布成功");
                                            
-                                           UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:[localNotification logExtenDescription]
-                                                                                             message:localNotification.alertBody
+                                           UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"ALService接收并处理本地通知消息"
+                                                                                             message:[localNotification al_extenDescription]
                                                                                             delegate:nil
                                                                                    cancelButtonTitle:@"OK"
                                                                                    otherButtonTitles:nil];

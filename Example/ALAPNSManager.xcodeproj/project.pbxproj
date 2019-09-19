@@ -252,6 +252,13 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = alex520biao;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -262,6 +269,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);

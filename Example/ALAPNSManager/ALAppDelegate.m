@@ -10,6 +10,7 @@
 #import "ALViewController.h"
 #import "ALService.h"
 #import <ALAPNSManager/ALAPNSManagerKit.h>
+#include <assert.h>
 
 @interface ALAppDelegate ()<ALAPNSManagerDelegate,ALLocNotifiManagerDelegate>
 @property(nonatomic,strong)ALAPNSManager *apnsManager;
@@ -55,10 +56,6 @@
         NSLog(@"DidPublished");
     }];
     
-    /*!
-     *  @brief 注册iOS系统 APNS消息
-     */
-    [self.apnsManager registerForRemoteNotification];
     
     ALService *service = [[ALService alloc] init];
     service.apnsManager = self.apnsManager;
@@ -68,19 +65,41 @@
     
 
     
-#warning 测试APNS启动
-    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
-    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
+#warning 测试APNS启动:使用测试APNS消息强行重写launchOptions对象
+//    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
+//    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
     
-    //正常处理
-//    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
-    
-    //接收并处理UILocalNotification
+    //处理launchOptions: 普通启动、APNS消息启动、本地通知启动、OpenURL启动等
+    //注册iOS系统 APNS消息
+    [self.apnsManager registerForRemoteNotification];
+    [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
     [self.locNotifiManager handleLocNotifiWithLaunchOptions:launchOptions];
     
     
-#warning 测试UILocalNotification启动应用
-    [self.locNotifiManager test_LocalNotification:10];
+    
+    
+    
+    
+#warning 测试UILocalNotification
+    UIButton *locationNotificationBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [locationNotificationBtn setTitle:@"本地通知: app前台场景" forState:UIControlStateNormal];
+    locationNotificationBtn.frame=CGRectMake(100,100,200,50);
+    [locationNotificationBtn addTarget:self action:@selector(locationNotificationBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [mainViewController.view addSubview:locationNotificationBtn];
+    
+    
+    UIButton *locationBackgroundBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [locationBackgroundBtn setTitle:@"本地通知: app后台场景" forState:UIControlStateNormal];
+    locationBackgroundBtn.frame=CGRectMake(100,200,200,50);
+    [locationBackgroundBtn addTarget:self action:@selector(locationBackgroundAction:) forControlEvents:UIControlEventTouchUpInside];
+    [mainViewController.view addSubview:locationBackgroundBtn];
+
+    
+    UIButton *locationLaunchBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [locationLaunchBtn setTitle:@"本地通知: 启动app场景" forState:UIControlStateNormal];
+    locationLaunchBtn.frame=CGRectMake(100,300,200,50);
+    [locationLaunchBtn addTarget:self action:@selector(locationNotificationLaunchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [mainViewController.view addSubview:locationLaunchBtn];
     
 //    NSString *urlStr=[NSString stringWithFormat:@"www.hao123.com"];
 //    NSURL *url=[NSURL URLWithString:urlStr];
@@ -148,6 +167,50 @@
     //APNS消息处理
     [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
 }
+
+#pragma mark - Action
+/*!
+ *  @brief 10s触发测试本地通知
+ *
+ *  @param btn
+ */
+-(void)locationNotificationBtnAction:(UIButton*)btn{
+    [self.locNotifiManager test_LocalNotification:10 title:@"app前台收到本地通知"];
+}
+
+
+/*!
+ *  @brief 测试本地通知a启动app
+ *         设置10s后本地通知，然后kill掉app，等待10sr之后app被此本地通知启动
+ *
+ *  @param btn
+ */
+-(void)locationNotificationLaunchBtnAction:(UIButton*)btn{
+    [self.locNotifiManager test_LocalNotification:10 title:@"app通过本地通知启动"];
+
+    //终止程序
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        exit(1);
+    });
+}
+
+/*!
+ *  @brief 测试本地通知app后台场景
+ *         设置10s后本地通知，然后app退入后台
+ *
+ *  @param btn
+ */
+-(void)locationBackgroundAction:(UIButton*)btn{
+    [self.locNotifiManager test_LocalNotification:10 title:@"app后台场景接收本地通知"];
+
+    //私有api仅用于测试
+    [[UIApplication sharedApplication] performSelector:@selector(suspend)];
+}
+
+
+
+
 
 #pragma mark - APNSManagerDelegate
 /*!

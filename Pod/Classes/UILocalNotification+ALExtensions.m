@@ -83,7 +83,7 @@
  *
  *  @return
  */
--(NSString*)logExtenDescription{
+-(NSString*)al_extenDescription{
     NSString *logExtenDescription = nil;
     
     NSString *launch = @"NO";
@@ -93,9 +93,9 @@
 
     NSString *trigger = @"未知";
     if([self triggerMode]==ALLocNotifiTriggerMode_UserClick){
-        trigger = @"用户点击触发";
+        trigger = @"用户点击消息分发";
     }else if([self triggerMode]==ALLocNotifiTriggerMode_Timer){
-        trigger = @"timer触发";
+        trigger = @"定时直接发送";
     }
     
     NSString *applicationStatus = nil;
@@ -109,7 +109,7 @@
         applicationStatus = @"UIApplicationStateBackground";
     }
     
-    logExtenDescription = [NSString stringWithFormat:@"launch:%@,trigger:%@,applicationStatus:%@",launch,trigger,applicationStatus];
+    logExtenDescription = [NSString stringWithFormat:@"alertTitle:%@ \n alertBody:%@ \n launch:%@ \n trigger:%@ \n applicationStatus:%@",self.alertTitle,self.alertBody, launch,trigger,applicationStatus];
     return logExtenDescription;
 }
 
