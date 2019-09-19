@@ -205,6 +205,17 @@
     }
 }
 
+//调用系统application_didiReceiveRemoteNotification_fetchCompletionHandler方法
+-(void)application_didiReceiveRemoteNotification_fetchCompletionHandler:(NSDictionary*)launchOptions{
+    //启动系统会调用application:didReceiveRemoteNotification:remoteDictfetchCompletionHandler:
+    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate application:[UIApplication sharedApplication] didReceiveRemoteNotification:remoteDict fetchCompletionHandler:^(UIBackgroundFetchResult result) {
+        //fetchCompletionHandler无法模拟
+    }];
+}
+
+
 #pragma mark - ALAPNSManagerSubProtocol - 实现订阅协议
 /*!
  *  @brief 添加一个监听项
@@ -254,13 +265,17 @@
  */
 -(void)handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
     //如果appDelegate未实现旧方法则需要模拟系统从新方法传递apns消息。反之则无需调用
+    //appDelegate实现了iOS7新方法，则优先通过通过application:didReceiveRemoteNotification:fetchCompletionHandlerl处理
     if(![self oldMethodDidReceiveRemoteNotification]){
-        //通过apns消息启动应用
+        //launchOptions只记录不处理, needHandle==NO
         [self receivedAPNSMsgWithLaunchOptions:launchOptions needHandle:NO];
         
-        //模拟调用application:didReceiveRemoteNotification:fetchCompletionHandler:
-        [self performSelector:@selector(test_handleAPNSMsgWithLaunchOptions:) withObject:launchOptions afterDelay:0.3];
+        //延时调用application:didReceiveRemoteNotification:fetchCompletionHandler:
+        [self performSelector:@selector(application_didiReceiveRemoteNotification_fetchCompletionHandler:)
+                   withObject:launchOptions
+                   afterDelay:0.3];
     }else{
+        //只有iOS7以前旧方法，则launchOptionsx需要立即被处理needHandle==YES
         //通过apns消息启动应用
         [self receivedAPNSMsgWithLaunchOptions:launchOptions needHandle:YES];
     }

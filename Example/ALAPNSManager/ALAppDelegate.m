@@ -63,21 +63,17 @@
     self.service = service;
     [self.service serviceDidLoad];
     
-
-    
 #warning 测试APNS启动:使用测试APNS消息强行重写launchOptions对象
-//    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
-//    [self.apnsManager test_APNSMsgWithLaunchOptions:launchOptions];
+    //    launchOptions = [ALAPNSManager launchOptionsWithRemoteNotification_TestWebPage];
+    
     
     //处理launchOptions: 普通启动、APNS消息启动、本地通知启动、OpenURL启动等
     //注册iOS系统 APNS消息
     [self.apnsManager registerForRemoteNotification];
     [self.apnsManager handleAPNSMsgWithLaunchOptions:launchOptions];
+    
+    //本地通知
     [self.locNotifiManager handleLocNotifiWithLaunchOptions:launchOptions];
-    
-    
-    
-    
     
     
 #warning 测试UILocalNotification
@@ -158,12 +154,13 @@
 }
 
 //iOS7开始使用application:didReceiveRemoteNotification:fetchCompletionHandler:方法处理
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-//    //APNS消息处理
-//    [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
-//}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    //APNS消息处理
+    [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
+}
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED{
     //APNS消息处理
     [self.apnsManager handleAPNSMsgWithDidReceiveRemoteNotification:userInfo];
 }

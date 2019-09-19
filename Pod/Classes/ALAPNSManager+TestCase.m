@@ -49,37 +49,6 @@
     return launchOptions;
 }
 
-
-/*!
- *  @brief 测试APNS启动应用
- *
- *  @param launchOptions
- *  @param apnsManager
- */
--(void)test_APNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
-    
-    //如果appDelegate未实现旧方法则需要模拟系统从新方法传递apns消息。反之则无需调用
-    if(![self oldMethodDidReceiveRemoteNotification]){
-        //通过apns消息启动应用
-        [self receivedAPNSMsgWithLaunchOptions:launchOptions needHandle:NO];
-
-        //模拟调用application:didReceiveRemoteNotification:fetchCompletionHandler:
-        [self performSelector:@selector(test_handleAPNSMsgWithLaunchOptions:) withObject:launchOptions afterDelay:0.3];
-    }else{
-        //通过apns消息启动应用
-        [self receivedAPNSMsgWithLaunchOptions:launchOptions needHandle:YES];
-    }
-}
-
--(void)test_handleAPNSMsgWithLaunchOptions:(NSDictionary*)launchOptions{
-    //启动系统会调用application:didReceiveRemoteNotification:remoteDictfetchCompletionHandler:
-    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    id appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate application:[UIApplication sharedApplication] didReceiveRemoteNotification:remoteDict fetchCompletionHandler:^(UIBackgroundFetchResult result) {
-        //fetchCompletionHandler无法模拟
-    }];
-}
-
 #endif
 
 
